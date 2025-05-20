@@ -1,0 +1,15 @@
+{
+    "_comment": [
+        "Webpack resolve.alias does not work autocomplete",
+        "https://stackoverflow.com/questions/47181037/vscode-intellisense-does-not-work-with-webpack-alias"
+    ],
+    "compilerOptions": {
+        "module": "es2020",
+        "baseUrl": ".",
+        "paths": {}
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
