@@ -1,4 +1,4 @@
-import { FeedingStat, LinkResult } from "../types.js";
+import { CharacterPermissions, FeedingStat, LinkResult } from "../types.js";
 import { API_ACCESS_TOKEN, API_BASE_URI } from "../settings.js";
 import { User } from "discord.js";
 
@@ -25,7 +25,7 @@ export function getFeedingStat(week: string): Promise<FeedingStat> {
         })
 }
 
-export function linkCharacter(user: User, characterName: string): Promise<any> {
+export function linkCharacter(user: User, characterName: string): Promise<LinkResult> {
     // const params = new URLSearchParams();
     // params.append("username", "example");
     // // GET request sent to https://example.org/login?username=example
@@ -56,7 +56,7 @@ export function linkCharacter(user: User, characterName: string): Promise<any> {
         })
 }
 
-export function associatesStations(user: User): Promise<any> {
+export function associatesStations(user: User): Promise<CharacterPermissions[]> {
     const requestHeaders = new Headers();
     requestHeaders.append("Content-Type", "application/json");
     requestHeaders.append("Accept", "application/json");
@@ -73,6 +73,6 @@ export function associatesStations(user: User): Promise<any> {
         // the JSON body is taken from the response
         .then(async (result) => result.json())
         .then(result => {
-            return result
+            return result as CharacterPermissions[]
         })
 }

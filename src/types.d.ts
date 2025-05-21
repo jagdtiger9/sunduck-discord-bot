@@ -95,3 +95,22 @@ export interface LinkResult {
     statusText: string,
     message: string,
 }
+
+export interface CharacterPermissions {
+    character: string,
+    permissionsMap: PermissionsMap[],
+}
+
+export interface PermissionsMap {
+    cityId: string,
+    cityName: string,
+    stations: { [id: string]: StationsMap }
+}
+
+export interface StationsMap {
+    station: string,
+    stationName: string,
+    playerAccess: boolean,
+    guildAccess: boolean,
+    allianceAccess: boolean,
+}

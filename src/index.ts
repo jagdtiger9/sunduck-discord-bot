@@ -21,12 +21,14 @@ import { Command, CustomClient } from "./types.js";
 import pingCommand from './command/ping.js'
 import feedingStat from './command/feedingStat.js'
 import linkCharacter from "./command/linkCharacter.js";
+import myStations from "./command/myStations.js";
 import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
 
 const commands: Array<Command> = [
     pingCommand,
     feedingStat,
     linkCharacter,
+    myStations,
 ];
 
 // Create a new client instance
