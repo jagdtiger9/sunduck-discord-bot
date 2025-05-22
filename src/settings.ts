@@ -5,3 +5,6 @@ export const APP_ID: string = process.env.APP_ID || ''
 export const SERVER_ID: string = process.env.SERVER_ID || ''
 export const FEED_UP_CHANNEL: string = process.env.FEED_UP_CHANNEL || ''
 export const PASSPORT_CHANNEL: string = process.env.PASSPORT_CHANNEL || ''
+
+export const associatedButtonCommand = 'associated'
+export const buttonCommandParamSplitter = '__'

@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, TextChannel } from "discord.js";
-import { Command, LinkResult } from "../types.js";
+import { Command, RequestResult } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
 import { linkCharacter } from "../gateway/HttpApi.js";
 import { PASSPORT_CHANNEL } from "../settings.js";
@@ -16,7 +16,7 @@ export default {
         ),
     async execute(interaction: ChatInputCommandInteraction) {
         const characterName = interaction.options.getString('name') || ''
-        const result: LinkResult = await linkCharacter(interaction.user, characterName)
+        const result: RequestResult<string> = await linkCharacter(interaction.user, characterName)
         await interaction.reply({ content: `${result.status ? '' : 'Error:'} ${result.message}`, flags: MessageFlags.Ephemeral });
 
         if (result.status) {

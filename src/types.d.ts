@@ -2,9 +2,10 @@ import * as Discord from "discord.js";
 import { Collection } from "discord.js";
 
 export declare class CustomClient extends Discord.Client {
-    /** Commands collection */
+    /** Application command collection */
     public commands: Discord.Collection<string, Command>;
-
+    /** Buttons command collection */
+    public buttons: Discord.Collection<string, Command>;
     /** Commands collection */
     public cooldowns: Discord.Collection<string, Collection<string, number>>;
     // public guildInfoCache: Discord.Collection<Discord.Snowflake, GuildInfo>;
@@ -25,6 +26,11 @@ export type Flags = {
         | Array<string | number | Discord.GuildChannel | Discord.Role | Discord.GuildMember | Discord.User>
 }
 
+export type ButtonParams = {
+    name: string,
+    param: string,
+}
+
 export interface Command {
     /** Command name */
     name: string;
@@ -35,7 +41,7 @@ export interface Command {
     data: Discord.SlashCommandBuilder;
 
     /** Command callback */
-    execute(p: Discord.ChatInputCommandInteraction): any;
+    execute(p: Discord.ChatInputCommandInteraction | Discord.ButtonInteraction): any;
 
     // /** Aliases for this command */
     // aliases?: string[];
@@ -77,6 +83,13 @@ export interface Command {
     // serverOwnerOnly?: boolean;
 }
 
+export interface RequestResult<Type> {
+    status: boolean,
+    statusText: string,
+    message: string,
+    data: Type
+}
+
 export interface FeedingStat {
     title: string,
     message: '',
@@ -90,10 +103,11 @@ export interface UserStat {
     userId: string,
 }
 
-export interface LinkResult {
-    status: boolean,
-    statusText: string,
-    message: string,
+export interface Character {
+    character: string,
+    guild: string,
+    alliance: string,
+    tag: string,
 }
 
 export interface CharacterPermissions {

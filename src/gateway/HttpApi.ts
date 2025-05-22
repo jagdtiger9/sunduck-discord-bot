@@ -1,4 +1,4 @@
-import { CharacterPermissions, FeedingStat, LinkResult } from "../types.js";
+import { Character, CharacterPermissions, FeedingStat, RequestResult } from "../types.js";
 import { API_ACCESS_TOKEN, API_BASE_URI } from "../settings.js";
 import { User } from "discord.js";
 
@@ -25,7 +25,7 @@ export function getFeedingStat(week: string): Promise<FeedingStat> {
         })
 }
 
-export function linkCharacter(user: User, characterName: string): Promise<LinkResult> {
+export function linkCharacter(user: User, characterName: string): Promise<RequestResult<string>> {
     // const params = new URLSearchParams();
     // params.append("username", "example");
     // // GET request sent to https://example.org/login?username=example
@@ -44,19 +44,41 @@ export function linkCharacter(user: User, characterName: string): Promise<LinkRe
             name: user.globalName,
             character: characterName
         }),
+    }).then(async (result) => {
+        const body = await result.json()
+        return {
+            status: result.ok,
+            statusText: result.statusText,
+            message: body.message,
+            data: '',
+        } as RequestResult<string>
     })
-        // the JSON body is taken from the response
-        .then(async (result) => {
-            const body = await result.json()
-            return {
-                status: result.ok,
-                statusText: result.statusText,
-                message: body.message,
-            } as LinkResult
-        })
 }
 
-export function associatesStations(user: User): Promise<CharacterPermissions[]> {
+export function linkedCharacters(user: User): Promise<RequestResult<Character[]>> {
+    const requestHeaders = new Headers();
+    requestHeaders.append("Content-Type", "application/json");
+    requestHeaders.append("Accept", "application/json");
+    requestHeaders.append("access-token", API_ACCESS_TOKEN)
+
+    return fetch(`${API_BASE_URI}/bot/linkedCharacters`, {
+        method: "POST",
+        headers: requestHeaders,
+        body: JSON.stringify({
+            id: user.id,
+        }),
+    }).then(async (result) => {
+        const body = await result.json()
+        return {
+            status: result.ok,
+            statusText: result.statusText,
+            message: result.ok ? 'ok' : body.message,
+            data: (result.ok ? body : []) as Character[],
+        } as RequestResult<Character[]>
+    })
+}
+
+export function associatesStations(user: User, character: string): Promise<RequestResult<CharacterPermissions>> {
     const requestHeaders = new Headers();
     requestHeaders.append("Content-Type", "application/json");
     requestHeaders.append("Accept", "application/json");
@@ -67,12 +89,17 @@ export function associatesStations(user: User): Promise<CharacterPermissions[]> 
         headers: requestHeaders,
         body: JSON.stringify({
             id: user.id,
-            discordName: user.username,
+            character,
         }),
     })
         // the JSON body is taken from the response
-        .then(async (result) => result.json())
-        .then(result => {
-            return result as CharacterPermissions[]
+        .then(async (result) => {
+            const body = await result.json()
+            return {
+                status: result.ok,
+                statusText: result.statusText,
+                message: result.ok ? 'ok' : body.message,
+                data: (result.ok ? body : {}) as CharacterPermissions,
+            } as RequestResult<CharacterPermissions>
         })
 }

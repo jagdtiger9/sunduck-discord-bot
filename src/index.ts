@@ -16,13 +16,15 @@
 //const {Client, Events, GatewayIntentBits} = require('discord.js')
 import { BaseInteraction, Client, Collection, Events, REST, Routes } from 'discord.js'
 import { GatewayIntentBits, MessageFlags } from 'discord-api-types/v10'
-import { Command, CustomClient } from "./types.js";
+import { ButtonParams, Command, CustomClient } from "./types.js";
 
 import pingCommand from './command/ping.js'
 import feedingStat from './command/feedingStat.js'
 import linkCharacter from "./command/linkCharacter.js";
 import myStations from "./command/myStations.js";
+import associated from "./buttons/associated.js";
 import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
+import { getButtonParams } from "./application/service/buttonParams.js";
 
 const commands: Array<Command> = [
     pingCommand,
@@ -30,18 +32,28 @@ const commands: Array<Command> = [
     linkCharacter,
     myStations,
 ];
+const buttons: Array<Command> = [
+    associated,
+]
 
 // Create a new client instance
 const client = new Client({
     intents: [GatewayIntentBits.Guilds]
 }) as CustomClient;
 client.commands = new Collection();
+client.buttons = new Collection();
 client.cooldowns = new Collection();
 commands.map(
     (command: Command) => {
         client.commands.set(command.data.name, command)
     }
 )
+buttons.map(
+    (command: Command) => {
+        client.buttons.set(command.data.name, command)
+    }
+)
+
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 try {
@@ -60,11 +72,22 @@ try {
 }
 
 client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
-    if (!interaction.isChatInputCommand()) return;
-
-    const command = client.commands.get(interaction.commandName);
-    if (!command) {
-        console.error(`No command matching ${interaction.commandName} was found.`);
+    let command: Command | undefined = undefined
+    if (interaction.isChatInputCommand()) {
+        command = client.commands.get(interaction.commandName);
+        if (!command) {
+            console.error(`No command matching ${interaction.commandName} was found.`);
+            return;
+        }
+    } else if (interaction.isButton()) {
+        const button: ButtonParams = getButtonParams(interaction.customId)
+        console.log(interaction.customId, button)
+        command = client.buttons.get(button.name);
+        if (!command) {
+            console.error(`No command matching ${button} was found.`);
+            return;
+        }
+    } else {
         return;
     }
 

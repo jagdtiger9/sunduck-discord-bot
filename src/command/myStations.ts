@@ -1,56 +1,58 @@
-import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
-import { CharacterPermissions, Command, PermissionsMap, StationsMap } from "../types.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { Character, Command, RequestResult } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
-import { associatesStations } from "../gateway/HttpApi.js";
+import { linkedCharacters } from "../gateway/HttpApi.js";
+import { associatedButtonCommand, buttonCommandParamSplitter } from "../settings.js";
 
 export default {
     cooldown: 60,
     data: new SlashCommandBuilder()
         .setName('my_stations')
-        .setDescription('Print associates stations for your linked characters'),
+        .setDescription('Get associated stations for your linked characters'),
     async execute(interaction: ChatInputCommandInteraction) {
-        const permissions: CharacterPermissions[] = await associatesStations(interaction.user)
+        const requestResult: RequestResult<Character[]> = await linkedCharacters(interaction.user)
+        if (!requestResult.status) {
+            await interaction.reply({ content: `${requestResult.message}`, flags: MessageFlags.Ephemeral });
+            return
+        }
+
+        const buttons: ButtonBuilder[] = []
         const embed = new EmbedBuilder()
             .setColor(0x0000CC)
-            .setTitle(`Associate stations`)
-            .setDescription(`Stations with a discount for you`)
-        permissions.map((characterPermissions: CharacterPermissions) => {
-            embed.addFields(
-                {
-                    name: characterPermissions.character,
-                    value: '',
-                    inline: false,
-                },
-            );
-            characterPermissions.permissionsMap.map((permissionsMap: PermissionsMap) => {
-                let plots = ''
-                Object.values(permissionsMap.stations).map((station: StationsMap) => {
-                    plots += `${station.stationName} - ${station.allianceAccess ? 'A' : ''}` +
-                        `${station.guildAccess ? 'G' : ''}${station.playerAccess ? 'P' : ''}\n`
-                })
-                embed.addFields(
-                    {
-                        name: permissionsMap.cityName,
-                        value: plots,
-                        inline: true,
-                    },
+            .setTitle(`Associated characters`)
+        if (requestResult.data.length) {
+            embed.setDescription(`Select character to get associated stations`)
+            requestResult.data.map((character: Character) => {
+                buttons.push(new ButtonBuilder()
+                    .setCustomId(`${associatedButtonCommand}${buttonCommandParamSplitter}${character.character}`)
+                    .setLabel(`${character.character} ${character.tag ? `[${character.tag}]` : ''}${character.guild}`)
+                    .setStyle(ButtonStyle.Secondary)
                 );
-            })
-            embed.addFields({ name: '\u200B', value: '\u200B' });
-        })
-        embed.setFooter(
-            { text: 'A - alliance, G - guild, P - private' }
-        );
-        // .addFields(
-        //     { name: 'Пользователь', value: `<@${interaction.user.id}>` || '', inline: true },
-        //     { name: 'Персонаж', value: `${characterName}`, inline: true },
-        //     // { name: '\u200B', value: '\u200B' },
-        // )
+            });
+        } else {
+            embed.setDescription(`No linked characters, use /link_character command first please`)
+        }
         embed.setTimestamp();
+
+        // Max buttons attached
+        const shift = 5
+        const row: ActionRowBuilder<ButtonBuilder> = new ActionRowBuilder<ButtonBuilder>()
+            .addComponents(buttons.splice(0, shift))
         await interaction.reply({
-            content: `List of stations with discounts for you`,
+            content: ``,
             embeds: [embed],
+            components: [row],
             flags: MessageFlags.Ephemeral
         });
+
+        while (buttons.length) {
+            const row: ActionRowBuilder<ButtonBuilder> = new ActionRowBuilder<ButtonBuilder>()
+                .addComponents(buttons.splice(0, shift))
+            await interaction.followUp({
+                content: ``,
+                components: [row],
+                flags: MessageFlags.Ephemeral
+            });
+        }
     },
 } as Command
