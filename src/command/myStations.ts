@@ -8,7 +8,7 @@ export default {
     cooldown: 60,
     data: new SlashCommandBuilder()
         .setName('my_stations')
-        .setDescription('Get associated stations for your linked characters'),
+        .setDescription('Get associated stations for your in-game characters'),
     async execute(interaction: ChatInputCommandInteraction) {
         const requestResult: RequestResult<Character[]> = await linkedCharacters(interaction.user)
         if (!requestResult.status) {
@@ -19,20 +19,18 @@ export default {
         const buttons: ButtonBuilder[] = []
         const embed = new EmbedBuilder()
             .setColor(0x0000CC)
-            .setTitle(`Associated characters`)
+            .setTitle(`Select character to get his associated stations`)
         if (requestResult.data.length) {
-            embed.setDescription(`Select character to get associated stations`)
             requestResult.data.map((character: Character) => {
                 buttons.push(new ButtonBuilder()
                     .setCustomId(`${associatedButtonCommand}${buttonCommandParamSplitter}${character.character}`)
                     .setLabel(`${character.character} ${character.tag ? `[${character.tag}]` : ''}${character.guild}`)
-                    .setStyle(ButtonStyle.Secondary)
+                    .setStyle(ButtonStyle.Success)
                 );
             });
         } else {
-            embed.setDescription(`No linked characters, use /link_character command first please`)
+            embed.setDescription(`No characters defined, use /link_character command please`)
         }
-        embed.setTimestamp();
 
         // Max buttons attached
         const shift = 5

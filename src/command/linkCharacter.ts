@@ -8,16 +8,26 @@ export default {
     cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('link_character')
-        .setDescription('Link a game character to your account')
+        .setDescription('Link a in-game character to your account')
         .addStringOption(option =>
             option.setName('name')
-                .setDescription('Character name')
+                .setDescription('Your in-game character name')
                 .setRequired(true)
         ),
     async execute(interaction: ChatInputCommandInteraction) {
         const characterName = interaction.options.getString('name') || ''
         const result: RequestResult<string> = await linkCharacter(interaction.user, characterName)
-        await interaction.reply({ content: `${result.status ? '' : 'Error:'} ${result.message}`, flags: MessageFlags.Ephemeral });
+        await interaction.reply({
+            content: ``,
+            embeds: [
+                new EmbedBuilder().setColor(result.status ? 0x00CC00 : 0xCC0000)
+                    .setTitle(`${result.message}`)
+                    .setDescription(
+                        result.status ? 'Awaiting moderator approval' : '[Check character existence](https://albion.gudilap.ru/en/finder)'
+                    )
+            ],
+            flags: MessageFlags.Ephemeral
+        });
 
         if (result.status) {
             const channel = interaction.client.channels.cache.get(PASSPORT_CHANNEL) as TextChannel;
