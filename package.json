@@ -1,27 +1,4 @@
 {
-    "name": "sunduck-bot",
-    "packageManager": "yarn@4.9.1",
-    "description": "SUNDUCK discord bot",
-    "main": "index.js",
-    "author": "Aljerom",
-    "repository": "https://jagdtiger9@github.com/jagdtiger9/albion-ocean-bot.git",
-    "type": "module",
-    "scripts": {
-        "compile": "tsc",
-        "start": "tsc && node ./dist/index.js"
-    },
-    "dependencies": {
-        "discord-api-types": "^0.38.8",
-        "discord.js": "^14.19.3",
-        "request": "^2.88.0",
-        "typescript": "^5.8.3"
-    },
-    "license": "MIT",
-    "devDependencies": {
-        "@eslint/js": "^9.26.0",
-        "eslint": "^9.26.0",
-        "eslint-plugin-vue": "^10.1.0",
-        "globals": "^16.1.0",
-        "typescript-eslint": "^8.32.1"
-    }
+  "name": "sunduck_bot",
+  "packageManager": "yarn@4.9.1"
 }
