@@ -6,6 +6,7 @@ RUN apt-get -y update \
     && curl -sL https://deb.nodesource.com/setup_22.x | bash - \
     && install_clean nodejs \
     && corepack enable \
+    && yarn set version stable \
     && mkdir /var/www && cd /var/www \
 #    && git clone https://github.com/jagdtiger9/wss_server . \
     && yarn init && yarn install \
