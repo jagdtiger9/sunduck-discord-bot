@@ -71,6 +71,7 @@ try {
     if (error instanceof Error) {
         console.error(
             error.name,
+            '|',
             error.message,
         );
     }
@@ -125,8 +126,11 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
         if (error instanceof Error) {
             console.error(
                 error.name,
+                '|',
                 error.message,
+                '|',
                 error.cause,
+                '|',
             );
         }
         if (interaction.replied || interaction.deferred) {
