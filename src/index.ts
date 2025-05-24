@@ -75,7 +75,7 @@ try {
             error.message,
         );
     }
-    console.error(error);
+    console.error(`register commands: ${error}`);
 }
 
 client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
