@@ -14,7 +14,7 @@
 
 // https://stackoverflow.com/questions/75281628/webstorm-discord-js-element-is-not-exported
 //const {Client, Events, GatewayIntentBits} = require('discord.js')
-import { BaseInteraction, Client, Collection, Events, REST, Routes } from 'discord.js'
+import { BaseInteraction, Client, Collection, Events, REST, Routes, TextChannel } from 'discord.js'
 import { GatewayIntentBits, MessageFlags } from 'discord-api-types/v10'
 import { ButtonParams, Command, CustomClient } from "./types.js";
 
@@ -23,7 +23,7 @@ import feedingStat from './command/feedingStat.js'
 import linkCharacter from "./command/linkCharacter.js";
 import myStations from "./command/myStations.js";
 import associated from "./buttons/associated.js";
-import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
+import { APP_ID, ERROR_CHANNEL, SERVER_ID, TOKEN } from "./settings.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
 
 const commands: Array<Command> = [
@@ -115,12 +115,16 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
     try {
         await command.execute(interaction);
     } catch (error) {
-        console.error(error);
+        console.error(`exception: ${error}`);
         if (interaction.replied || interaction.deferred) {
-            await interaction.followUp({ content: 'There was an error while executing this command!', flags: MessageFlags.Ephemeral });
+            await interaction.followUp({ content: 'Discord connection error. Please try again later!', flags: MessageFlags.Ephemeral });
         } else {
-            await interaction.reply({ content: 'There was an error while executing this command!', flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: 'Discord connection error. Please try again later!', flags: MessageFlags.Ephemeral });
         }
+        const channel = interaction.client.channels.cache.get(ERROR_CHANNEL) as TextChannel;
+        await channel?.send({
+            content: `<@215036376654020608>\nerror`,
+        });
     }
 });
 
