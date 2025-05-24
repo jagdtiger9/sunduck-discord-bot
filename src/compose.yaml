@@ -1,0 +1,30 @@
+services:
+    discord:
+        image: jagdtiger/sunduck-discord-bot
+        #    build:
+        #        context: ./images/nodejs
+        container_name: discord
+        profiles: [ custom ]
+        user: ${UID:-1001}:${GID:-1001}
+        environment:
+            - BOT_TOKEN=${BOT_TOKEN}
+            - APP_ID=${APP_ID}
+            - SERVER_ID=${SERVER_ID}
+            - API_ACCESS_TOKEN=${API_ACCESS_TOKEN}
+            - FEED_UP_CHANNEL=${FEED_UP_CHANNEL}
+            - PASSPORT_CHANNEL=${PASSPORT_CHANNEL}
+            - ERROR_CHANNEL=${ERROR_CHANNEL}
+        volumes:
+            - ${DISCORD_FILES:-/tmp}:/var/www
+        working_dir: /var/www
+        command: [ 'yarn', 'start' ]
+        networks:
+            - net
+        restart: unless-stopped
+        logging:
+            driver: "syslog"
+            options:
+                syslog-address: "udp://127.0.0.1:514"
+                syslog-facility: "daemon"
+                tag: "discord"
+

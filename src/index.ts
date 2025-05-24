@@ -68,6 +68,12 @@ try {
     );
     console.log('Successfully reloaded application (/) commands.');
 } catch (error) {
+    if (error instanceof Error) {
+        console.error(
+            error.name,
+            error.message,
+        );
+    }
     console.error(error);
 }
 
@@ -116,6 +122,13 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
         await command.execute(interaction);
     } catch (error) {
         console.error(`exception: ${error}`);
+        if (error instanceof Error) {
+            console.error(
+                error.name,
+                error.message,
+                error.cause,
+            );
+        }
         if (interaction.replied || interaction.deferred) {
             await interaction.followUp({ content: 'Discord connection error. Please try again later!', flags: MessageFlags.Ephemeral });
         } else {
