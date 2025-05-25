@@ -127,4 +127,5 @@ export interface StationsMap {
     playerAccess: boolean,
     guildAccess: boolean,
     allianceAccess: boolean,
+    plotNum: Array<number>,
 }

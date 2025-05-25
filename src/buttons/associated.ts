@@ -25,8 +25,8 @@ export default {
             requestResult.data.permissionsMap.map((permissionsMap: PermissionsMap) => {
                 let plots = ''
                 Object.values(permissionsMap.stations).map((station: StationsMap) => {
-                    plots += `${station.stationName} - ${station.allianceAccess ? 'A' : ''}` +
-                        `${station.guildAccess ? 'G' : ''}${station.playerAccess ? 'P' : ''}\n`
+                    plots += `${station.stationName} - [${station.plotNum}]` +
+                        ` ${station.allianceAccess ? 'A' : ''}${station.guildAccess ? 'G' : ''}${station.playerAccess ? 'P' : ''}\n`
                 })
                 embed.addFields(
                     {
@@ -38,7 +38,7 @@ export default {
             })
             embed.addFields({ name: '\u200B', value: '\u200B' });
             embed.setFooter(
-                { text: 'A - alliance, G - guild, P - private' }
+                { text: '[N] - plot number\nA - alliance, G - guild, P - private' }
             );
         } else {
             embed.setDescription(`No discount stations for you character`)
