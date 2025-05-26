@@ -1,4 +1,4 @@
-export const API_BASE_URI = 'https://albion.gudilap.ru'
+export const API_BASE_URI = 'https://albion.neogudilap.ru'
 export const API_ACCESS_TOKEN: string = process.env.API_ACCESS_TOKEN || ''
 export const TOKEN: string = process.env.BOT_TOKEN || ''
 export const APP_ID: string = process.env.APP_ID || ''

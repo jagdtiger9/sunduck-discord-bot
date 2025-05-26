@@ -17,7 +17,7 @@ services:
         volumes:
             - ${DISCORD_FILES:-/tmp}:/var/www
         working_dir: /var/www
-        command: [ 'yarn', 'start' ]
+        #command: [ 'yarn', 'start' ]
         networks:
             - net
         restart: unless-stopped
@@ -27,4 +27,3 @@ services:
                 syslog-address: "udp://127.0.0.1:514"
                 syslog-facility: "daemon"
                 tag: "discord"
-

@@ -23,7 +23,7 @@ export default {
                 new EmbedBuilder().setColor(result.status ? 0x00CC00 : 0xCC0000)
                     .setTitle(`${result.message}`)
                     .setDescription(
-                        result.status ? 'Awaiting moderator approval' : '[Check character existence](https://albion.gudilap.ru/en/finder)'
+                        result.status ? 'Awaiting moderator approval' : '[Check character existence](https://albion.neogudilap.ru/en/finder)'
                     )
             ],
             flags: MessageFlags.Ephemeral
@@ -34,7 +34,7 @@ export default {
             const embed = new EmbedBuilder()
                 .setColor(0x0000CC)
                 .setTitle(`Привязка персонажа`)
-                .setDescription(`[Подтверждение](https://albion.gudilap.ru/ru/admin/users)`)
+                .setDescription(`[Подтверждение](https://albion.neogudilap.ru/ru/admin/users)`)
                 .addFields(
                     { name: 'Пользователь', value: `<@${interaction.user.id}>` || '', inline: true },
                     { name: 'Персонаж', value: `${characterName}`, inline: true },
