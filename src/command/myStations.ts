@@ -19,7 +19,7 @@ export default {
         const buttons: ButtonBuilder[] = []
         const embed = new EmbedBuilder()
             .setColor(0x0000CC)
-            .setTitle(`Select character to get his associated stations`)
+            .setTitle(`Select a character to get their associated stations`)
         if (requestResult.data.length) {
             requestResult.data.map((character: Character) => {
                 buttons.push(new ButtonBuilder()
@@ -29,7 +29,7 @@ export default {
                 );
             });
         } else {
-            embed.setDescription(`No characters defined, use /link_character command please`)
+            embed.setDescription(`No characters found, use /link_character command first`)
         }
 
         // Max buttons attached
