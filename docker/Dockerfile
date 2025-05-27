@@ -1,11 +1,6 @@
 FROM phusion/baseimage:noble-1.0.1
 LABEL org.opencontainers.image.authors="MAINTAINER gimatov@gmail.com"
 
-ARG UID
-ARG GID
-ENV UID=${UID:-1000}
-ENV GID=${GID:-1000}
-
 RUN apt-get -y update \
     && apt-get install -y curl git \
     && curl -sL https://deb.nodesource.com/setup_22.x | bash - \
