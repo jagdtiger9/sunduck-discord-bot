@@ -5,7 +5,8 @@ services:
         #        context: ./images/nodejs
         container_name: discord
         profiles: [ custom ]
-        user: ${UID:-1001}:${GID:-1001}
+        # cant set here, entrypoint scrinpt should have root perms to create users
+        #user: ${UID:-1001}:${GID:-1001}
         environment:
             - UID=${UID:-1000}
             - GID=${GID:-1000}
