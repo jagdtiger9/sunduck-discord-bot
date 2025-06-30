@@ -14,7 +14,7 @@
 
 // https://stackoverflow.com/questions/75281628/webstorm-discord-js-element-is-not-exported
 //const {Client, Events, GatewayIntentBits} = require('discord.js')
-import { BaseInteraction, Client, Collection, Events, REST, Routes, TextChannel } from 'discord.js'
+import { BaseInteraction, Client, ClientEvents, Collection, Events, GuildMember, PartialGuildMember, REST, Routes, TextChannel } from 'discord.js'
 import { GatewayIntentBits, MessageFlags } from 'discord-api-types/v10'
 import { ButtonParams, Command, CustomClient } from "./types.js";
 
@@ -25,6 +25,8 @@ import myStations from "./command/myStations.js";
 import associated from "./buttons/associated.js";
 import { APP_ID, ERROR_CHANNEL, SERVER_ID, TOKEN } from "./settings.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
+import { addMember } from "./application/addMemberHandler.js";
+import { removeMember } from "./application/removeMemberHandler.js";
 
 const commands: Array<Command> = [
     pingCommand,
@@ -38,7 +40,7 @@ const buttons: Array<Command> = [
 
 // Create a new client instance
 const client = new Client({
-    intents: [GatewayIntentBits.Guilds]
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildPresences]
 }) as CustomClient;
 client.commands = new Collection();
 client.buttons = new Collection();
@@ -145,11 +147,26 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
     }
 });
 
+client.on(Events.GuildMemberAdd, async (member: GuildMember) => {
+    try {
+        await addMember(member);
+    } catch (error) {
+        console.error(`exception: ${error}`);
+    }
+})
+client.on(Events.GuildMemberRemove, async (member: GuildMember | PartialGuildMember) => {
+    try {
+        await removeMember(member);
+    } catch (error) {
+        console.error(`exception: ${error}`);
+    }
+})
+
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
 client.once(Events.ClientReady, (readyClient: Client) => {
-    console.log(`Ready! Logged in as ${readyClient?.user?.tag}`);
+    console.log(`Ready!\nLogged in as ${readyClient?.user?.tag}`);
     console.log(process.env.BOT_TOKEN)
 });
 client.login(TOKEN)

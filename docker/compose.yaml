@@ -30,3 +30,21 @@ services:
                 syslog-address: "udp://127.0.0.1:514"
                 syslog-facility: "daemon"
                 tag: "discord"
+
+    flaresolverr:
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        container_name: flaresolverr
+        profiles: [ custom ]
+        environment:
+            - LOG_LEVEL=info
+        ports:
+            - "8191:8191"
+        networks:
+            - net
+        restart: unless-stopped
+        logging:
+            driver: "syslog"
+            options:
+                syslog-address: "udp://127.0.0.1:514"
+                syslog-facility: "daemon"
+                tag: "flaresolverr"
