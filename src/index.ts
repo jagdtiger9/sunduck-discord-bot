@@ -23,6 +23,7 @@ import feedingStat from './command/feedingStat.js'
 import linkCharacter from "./command/linkCharacter.js";
 import myStations from "./command/myStations.js";
 import associated from "./buttons/associated.js";
+import associateStat from "./command/associateStat.js"
 import { APP_ID, ERROR_CHANNEL, SERVER_ID, TOKEN } from "./settings.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
 import { addMember } from "./application/addMemberHandler.js";
@@ -33,6 +34,7 @@ const commands: Array<Command> = [
     feedingStat,
     linkCharacter,
     myStations,
+    associateStat,
 ];
 const buttons: Array<Command> = [
     associated,

@@ -1,4 +1,4 @@
-import { Character, CharacterPermissions, FeedingStat, RequestResult } from "../types.js";
+import { Character, CharacterAggregatedStat, CharacterPermissions, DirectionFilter, FeedingStat, PeriodFilter, RequestResult } from "../types.js";
 import { API_ACCESS_TOKEN, API_BASE_URI } from "../settings.js";
 import { User } from "discord.js";
 
@@ -91,15 +91,43 @@ export function associatesStations(user: User, character: string): Promise<Reque
             id: user.id,
             character,
         }),
-    })
+    }).then(async (result) => {
         // the JSON body is taken from the response
-        .then(async (result) => {
-            const body = await result.json()
-            return {
-                status: result.ok,
-                statusText: result.statusText,
-                message: result.ok ? 'ok' : body.message,
-                data: (result.ok ? body : {}) as CharacterPermissions,
-            } as RequestResult<CharacterPermissions>
-        })
+        const body = await result.json()
+        return {
+            status: result.ok,
+            statusText: result.statusText,
+            message: result.ok ? 'ok' : body.message,
+            data: (result.ok ? body : {}) as CharacterPermissions,
+        } as RequestResult<CharacterPermissions>
+    })
+}
+
+export function associateStatistics(direction: DirectionFilter, period: PeriodFilter): Promise<RequestResult<CharacterAggregatedStat[]>> {
+    const requestHeaders = new Headers();
+    requestHeaders.append("Content-Type", "application/json");
+    requestHeaders.append("Accept", "application/json");
+    requestHeaders.append("access-token", API_ACCESS_TOKEN)
+    // For now, consider the data is stored on a static `users.json` file
+    console.log(JSON.stringify({
+        direction: direction,
+        period: period,
+    }))
+    return fetch(`${API_BASE_URI}/bot/associateStat`, {
+        method: "POST",
+        headers: requestHeaders,
+        body: JSON.stringify({
+            direction: direction,
+            period: period,
+        }),
+    }).then(async (result) => {
+        // the JSON body is taken from the response
+        const body = await result.json()
+        return {
+            status: result.ok,
+            statusText: result.statusText,
+            message: result.ok ? 'ok' : body.message,
+            data: (result.ok ? body : []) as CharacterAggregatedStat[],
+        } as RequestResult<CharacterAggregatedStat[]>
+    })
 }

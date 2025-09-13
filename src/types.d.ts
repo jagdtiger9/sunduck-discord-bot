@@ -129,3 +129,18 @@ export interface StationsMap {
     allianceAccess: boolean,
     plotNum: Array<number>,
 }
+
+export type CharacterAggregatedStat = {
+    name: string,
+    isClient: boolean,
+    week: number,
+    twoWeek: number,
+    threeWeek: number,
+    fourWeek: number,
+    thisWeek: number,
+    total: number,
+    updatedAt: string,
+}
+
+export type DirectionFilter = 'asc' | 'desc'
+export type PeriodFilter = '3w' | '1w' | 'w'
