@@ -35,7 +35,7 @@ export default {
             }
             if (directionFilter === 'asc') {
                 embed.setTitle(`Low rated characters`)
-                embed.setDescription(`Lowest craft rated characters for this week`)
+                embed.setDescription(`Lowest craft rated characters for 3 week`)
             }
             let data = ''
             result.data.map((stat: CharacterAggregatedStat, index: number) => {
@@ -47,8 +47,10 @@ export default {
                     value: data,
                 },
             )
-            //embed.addFields({ name: '\u200B', value: '\u200B' })
-            //embed.setFooter({ text: '....' })
+            if (directionFilter === 'asc') {
+                embed.addFields({ name: '\u200B', value: '\u200B' })
+                embed.setFooter({ text: 'Associates permissions can be revoked' })
+            }
         } else {
             embed.setDescription(`No rated characters`)
         }
