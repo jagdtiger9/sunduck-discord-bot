@@ -132,7 +132,7 @@ export interface StationsMap {
 
 export type CharacterAggregatedStat = {
     name: string,
-    isClient: boolean,
+    isPersonalRate: boolean,
     week: number,
     twoWeek: number,
     threeWeek: number,

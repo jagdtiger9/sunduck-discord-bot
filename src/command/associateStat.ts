@@ -39,7 +39,7 @@ export default {
             }
             let data = ''
             result.data.map((stat: CharacterAggregatedStat, index: number) => {
-                data += `**${index + 1}**. ` + '`' + stat.name + '`' + ` - ${stat.thisWeek.toLocaleString('ru-RU')}\n`
+                data += `**${index + 1}**. ` + '`' + stat.name + '`' + ` - ${stat.total.toLocaleString('ru-RU')}\n`
             })
             embed.addFields(
                 {
