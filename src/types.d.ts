@@ -143,4 +143,4 @@ export type CharacterAggregatedStat = {
 }
 
 export type DirectionFilter = 'asc' | 'desc'
-export type PeriodFilter = '3w' | '1w' | 'w'
+export type PeriodFilter = '3w' | '1w' | 'w' | 'prev' | 'this'

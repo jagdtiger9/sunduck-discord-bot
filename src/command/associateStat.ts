@@ -1,7 +1,8 @@
-import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, TextChannel } from "discord.js";
 import { CharacterAggregatedStat, Command, DirectionFilter, PeriodFilter, RequestResult } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
 import { associateStatistics } from "../gateway/HttpApi.js";
+import { FEED_UP_CHANNEL } from "../settings.js";
 
 export default {
     cooldown: 5,
@@ -9,17 +10,29 @@ export default {
         .setName('associate_stat')
         .setDescription('Get associates statistics')
         .addStringOption(option =>
-            option.setName('direction')
+            option.setName('filter')
                 .addChoices(
-                    { name: 'Top', value: 'desc' },
-                    { name: 'Low', value: 'asc' },
+                    { name: 'Top', value: 'top' },
+                    { name: 'Low', value: 'low' },
+                    { name: 'TopCurrent', value: 'current' },
                 )
-                .setDescription('Top rated / Low rated')
+                .setDescription('Top rated / Low rated / Top rated, this week')
                 .setRequired(true)
         ),
     async execute(interaction: ChatInputCommandInteraction) {
-        const directionFilter: DirectionFilter = (interaction.options.getString('direction') || 'desc') as DirectionFilter
-        const periodFilter: PeriodFilter = directionFilter === 'desc' ? 'w' : '3w'
+        const filter = interaction.options.getString('filter') || 'current'
+        let directionFilter: DirectionFilter
+        let periodFilter: PeriodFilter
+        if (filter === 'top') {
+            directionFilter = 'desc'
+            periodFilter = 'prev'
+        } else if (filter === 'low') {
+            directionFilter = 'asc'
+            periodFilter = '3w'
+        } else {
+            directionFilter = 'desc'
+            periodFilter = 'this'
+        }
         const result: RequestResult<CharacterAggregatedStat[]> = await associateStatistics(directionFilter, periodFilter)
         if (!result.status) {
             await interaction.reply({ content: `${result.message}`, flags: MessageFlags.Ephemeral });
@@ -29,13 +42,16 @@ export default {
         const embed = new EmbedBuilder()
             .setColor(0x0000CC)
         if (result.data.length) {
-            if (directionFilter === 'desc') {
-                embed.setTitle(`Top rated!`)
-                embed.setDescription(`Top craft rated characters for this week`)
-            }
-            if (directionFilter === 'asc') {
-                embed.setTitle(`Low rated`)
-                embed.setDescription(`Lowest craft rated characters for last 3 weeks`)
+            if (filter === 'low') {
+                embed.setTitle(`Modest 10 crafters`)
+                embed.setDescription(`Characters with the lowest craft rate for lst 3 weeks`)
+            } else {
+                embed.setTitle(`Top 10 crafters!`)
+                if (filter === 'top') {
+                    embed.setDescription(`Characters with the highest craft rate for the last week`)
+                } else if (filter === 'current') {
+                    embed.setDescription(`Characters with the highest craft rate for the current week`)
+                }
             }
             let data = ''
             result.data.map((stat: CharacterAggregatedStat, index: number) => {
@@ -48,7 +64,7 @@ export default {
                 },
             )
             if (directionFilter === 'asc') {
-                embed.addFields({ name: '\u200B', value: '\u200B' })
+                //embed.addFields({ name: '\u200B', value: '\u200B' })
                 embed.setFooter({ text: 'Associates permissions can be revoked' })
             }
         } else {
@@ -56,10 +72,18 @@ export default {
         }
         embed.setTimestamp();
 
+        //const channel = interaction.client.channels.cache.get(FEED_UP_CHANNEL) as TextChannel;
+        const channel = interaction.channel as TextChannel;
+        await channel?.send({
+            content: ``,
+            embeds: [embed],
+        });
+
         await interaction.reply({
             content: ``,
             embeds: [embed],
             flags: MessageFlags.Ephemeral
         });
+        //await interaction.deleteReply();
     },
 } as Command
