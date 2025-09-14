@@ -30,12 +30,12 @@ export default {
             .setColor(0x0000CC)
         if (result.data.length) {
             if (directionFilter === 'desc') {
-                embed.setTitle(`Top rated characters`)
+                embed.setTitle(`Top rated!`)
                 embed.setDescription(`Top craft rated characters for this week`)
             }
             if (directionFilter === 'asc') {
-                embed.setTitle(`Low rated characters`)
-                embed.setDescription(`Lowest craft rated characters for 3 week`)
+                embed.setTitle(`Low rated`)
+                embed.setDescription(`Lowest craft rated characters for last 3 weeks`)
             }
             let data = ''
             result.data.map((stat: CharacterAggregatedStat, index: number) => {
