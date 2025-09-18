@@ -1,4 +1,4 @@
-import { Character, CharacterAggregatedStat, CharacterPermissions, DirectionFilter, FeedingStat, PeriodFilter, RequestResult } from "../types.js";
+import { Character, CharacterAggregatedStat, CharacterPermissions, DirectionFilter, FeedingStat, PeriodFilter, RequestResult, TypeFilter } from "../types.js";
 import { API_ACCESS_TOKEN, API_BASE_URI } from "../settings.js";
 import { User } from "discord.js";
 
@@ -103,7 +103,11 @@ export function associatesStations(user: User, character: string): Promise<Reque
     })
 }
 
-export function associateStatistics(direction: DirectionFilter, period: PeriodFilter): Promise<RequestResult<CharacterAggregatedStat[]>> {
+export function associateStatistics(
+    direction: DirectionFilter,
+    period: PeriodFilter,
+    type: TypeFilter
+): Promise<RequestResult<CharacterAggregatedStat[]>> {
     const requestHeaders = new Headers();
     requestHeaders.append("Content-Type", "application/json");
     requestHeaders.append("Accept", "application/json");
@@ -112,6 +116,7 @@ export function associateStatistics(direction: DirectionFilter, period: PeriodFi
     console.log(JSON.stringify({
         direction: direction,
         period: period,
+        type: type,
     }))
     return fetch(`${API_BASE_URI}/bot/associateStat`, {
         method: "POST",
@@ -119,6 +124,7 @@ export function associateStatistics(direction: DirectionFilter, period: PeriodFi
         body: JSON.stringify({
             direction: direction,
             period: period,
+            type: type,
         }),
     }).then(async (result) => {
         // the JSON body is taken from the response

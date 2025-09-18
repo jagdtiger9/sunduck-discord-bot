@@ -61,7 +61,8 @@ buttons.map(
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 try {
-    console.log('Started refreshing application (/) commands.');
+    console.log('Started refreshing application (/) commands.')
+    client.commands.map((command: Command) => console.log(`Command: ${command.data.name}`))
     await rest.put(
         Routes.applicationGuildCommands(APP_ID, SERVER_ID),
         {

@@ -144,3 +144,4 @@ export type CharacterAggregatedStat = {
 
 export type DirectionFilter = 'asc' | 'desc'
 export type PeriodFilter = '3w' | '1w' | 'w' | 'prev' | 'this'
+export type TypeFilter = 'craft' | 'pvp' | 'pve' | 'gathering'
