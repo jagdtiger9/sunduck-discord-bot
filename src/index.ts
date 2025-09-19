@@ -74,11 +74,7 @@ try {
     console.log('Successfully reloaded application (/) commands.');
 } catch (error) {
     if (error instanceof Error) {
-        console.error(
-            error.name,
-            '|',
-            error.message,
-        );
+        console.error(`Register command error: ${error.name} | ${error.message}`);
     }
     console.error(`register commands: ${error}`);
 }
@@ -130,24 +126,8 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
     } catch (error) {
         console.error(`exception: ${error}`);
         if (error instanceof Error) {
-            console.error(
-                error.name,
-                '|',
-                error.message,
-                '|',
-                error.cause,
-                '|',
-            );
+            console.error(`Register command error: ${error.name} | ${error.message} | ${error.cause}`);
         }
-        if (interaction.replied || interaction.deferred) {
-            await interaction.followUp({ content: 'Discord connection error. Please try again later!', flags: MessageFlags.Ephemeral });
-        } else {
-            await interaction.reply({ content: 'Discord connection error. Please try again later!', flags: MessageFlags.Ephemeral });
-        }
-        const channel = interaction.client.channels.cache.get(ERROR_CHANNEL) as TextChannel;
-        await channel?.send({
-            content: `<@215036376654020608>\nerror`,
-        });
     }
 });
 
