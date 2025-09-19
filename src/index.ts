@@ -87,13 +87,14 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
     let command: Command | undefined = undefined
     if (interaction.isChatInputCommand()) {
         command = client.commands.get(interaction.commandName);
+        console.log(`Interaction command: ${command}`)
         if (!command) {
             console.error(`No command matching ${interaction.commandName} was found.`);
             return;
         }
     } else if (interaction.isButton()) {
         const button: ButtonParams = getButtonParams(interaction.customId)
-        console.log(interaction.customId, button)
+        console.log(`Interaction button: ${interaction.customId}, ${button}`)
         command = client.buttons.get(button.name);
         if (!command) {
             console.error(`No command matching ${button} was found.`);
