@@ -1,26 +1,37 @@
-FROM phusion/baseimage:noble-1.0.1
-LABEL org.opencontainers.image.authors="MAINTAINER gimatov@gmail.com"
+# Based on official PHP FPM Alpine image
+FROM alpine:3.21
+LABEL org.opencontainers.image.authors="gimatov@gmail.com"
 
-RUN apt-get -y update \
-    && apt-get install -y curl git \
-    && curl -sL https://deb.nodesource.com/setup_22.x | bash - \
-    && install_clean nodejs \
+ARG user=1000
+ARG group=1000
+
+# Install only runtime tools not provided by extensions
+RUN apk add --no-cache \
+    bash \
+    su-exec \
+    git \
+    nodejs \
+    npm \
+    yarn \
+    && npm install -g corepack \
     && corepack enable \
     && yarn set version stable \
-    && mkdir /var/www && cd /var/www \
-#    && git clone https://github.com/jagdtiger9/wss_server . \
-    && yarn init && yarn install \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf /var/cache/apk/*
 
-#RUN groupadd --gid 1001 gr1001 \
-#    && useradd --shell /bin/bash --uid 1001 --gid 1001 -m u1001 \
-#    && groupadd --gid 1002 gr1002 \
-#    && useradd --shell /bin/bash --uid 1002 --gid 1002 -m u1002 \
-#    && groupadd --gid 1003 gr1003 \
-#        && useradd --shell /bin/bash --uid 1003 --gid 1003 -m u1003
+#RUN addgroup -g ${group} g${group} 2>/dev/null || true && \
+#    adduser -u ${user} -G "g${group}" -D "u${user}" 2>/dev/null || true \
+#RUN addgroup -g ${group} g${group} \
+#    && adduser -u ${user} -G "g${group}" -D "u${user}" \
+RUN if ! getent group ${group} > /dev/null 2>&1; then addgroup -g ${group} g${group}; fi \
+    && if ! getent passwd ${user} > /dev/null 2>&1; then adduser -u ${user} -G g${group} -D "u${user}"; fi
+#    && mkdir -p /var/www && cd /var/www \
+#    && chown -R $user:$group /var/www \
+#    && chmod 0777 /var/www \
+#      && git clone https://github.com/jagdtiger9/wss_server . \
+#    && yarn init && yarn install
 
-VOLUME ["/var/www"]
+#USER ${user}
+#VOLUME ["/var/www"]
 
 COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
