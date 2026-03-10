@@ -25,8 +25,9 @@ export default {
             requestResult.data.permissionsMap.map((permissionsMap: PermissionsMap) => {
                 let plots = ''
                 Object.values(permissionsMap.stations).map((station: StationsMap) => {
-                    plots += `${station.stationName} - [${station.plotNum}]` +
-                        ` ${station.allianceAccess ? 'A' : ''}${station.guildAccess ? 'G' : ''}${station.playerAccess ? 'P' : ''}\n`
+                    plots += `${station.stationName}` +
+                        ` [${station.allianceAccess ? 'A' : ''}${station.guildAccess ? 'G' : ''}${station.playerAccess ? 'P' : ''}]` +
+                        ` - [${station.plotNum}]\n`
                 })
                 embed.addFields(
                     {

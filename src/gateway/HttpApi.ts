@@ -113,11 +113,14 @@ export function associateStatistics(
     requestHeaders.append("Accept", "application/json");
     requestHeaders.append("access-token", API_ACCESS_TOKEN)
     // For now, consider the data is stored on a static `users.json` file
-    console.log(JSON.stringify({
-        direction: direction,
-        period: period,
-        type: type,
-    }))
+    // console.log(
+    //     `${API_BASE_URI}/bot/associateStat`,
+    //     JSON.stringify({
+    //         direction: direction,
+    //         period: period,
+    //         type: type,
+    //     })
+    // )
     return fetch(`${API_BASE_URI}/bot/associateStat`, {
         method: "POST",
         headers: requestHeaders,
