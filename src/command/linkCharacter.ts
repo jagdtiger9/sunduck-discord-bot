@@ -2,7 +2,7 @@ import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, TextCha
 import { Command, RequestResult } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
 import { linkCharacter } from "../gateway/HttpApi.js";
-import { PASSPORT_CHANNEL } from "../settings.js";
+import { MODERATOR_USER_ID, PASSPORT_CHANNEL } from "../settings.js";
 
 export default {
     cooldown: 5,
@@ -42,7 +42,7 @@ export default {
                 )
             embed.setTimestamp();
             await channel?.send({
-                content: `<@215036376654020608>`,
+                content: `<@${MODERATOR_USER_ID}>`,
                 embeds: [embed],
             });
         }

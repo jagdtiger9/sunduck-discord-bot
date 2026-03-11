@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from "discord.js";
 import { CharacterAggregatedStat, Command, DirectionFilter, PeriodFilter, RequestResult, TypeFilter } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
 import { associateStatistics } from "../gateway/HttpApi.js";
@@ -27,7 +27,7 @@ export default {
                 )
                 .setDescription('Craft / PvP / PvE / Gathering')
                 .setRequired(true)
-        ),
+        ).setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     async execute(interaction: ChatInputCommandInteraction) {
         const filter = interaction.options.getString('filter') || 'current'
         const type: TypeFilter = interaction.options.getString('type') as TypeFilter || 'craft'

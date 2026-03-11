@@ -41,7 +41,7 @@ export default {
                 { text: '[N] - plot number\nA - for alliance, G - for guild' }
             );
         } else {
-            embed.setDescription(`No discount stations for you character`)
+            embed.setDescription(`No discount stations for your character`)
         }
         embed.setTimestamp();
 

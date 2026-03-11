@@ -14,7 +14,7 @@
 
 // https://stackoverflow.com/questions/75281628/webstorm-discord-js-element-is-not-exported
 //const {Client, Events, GatewayIntentBits} = require('discord.js')
-import { BaseInteraction, Client, ClientEvents, Collection, Events, GuildMember, PartialGuildMember, REST, Routes, TextChannel } from 'discord.js'
+import { BaseInteraction, Client, Collection, Events, GuildMember, PartialGuildMember, REST, Routes } from 'discord.js'
 import { GatewayIntentBits, MessageFlags } from 'discord-api-types/v10'
 import { ButtonParams, Command, CustomClient } from "./types.js";
 
@@ -22,15 +22,18 @@ import pingCommand from './command/ping.js'
 import feedingStat from './command/feedingStat.js'
 import linkCharacter from "./command/linkCharacter.js";
 import myStations from "./command/myStations.js";
-import associated from "./buttons/associated.js";
+import associated from "./buttons/associated.js"
+import helpButtons from "./buttons/helpButtons.js";
 import associateStat from "./command/associateStat.js"
-import { APP_ID, ERROR_CHANNEL, SERVER_ID, TOKEN } from "./settings.js";
+import helpCommand from "./command/helpCommand.js"
+import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
 import { addMember } from "./application/addMemberHandler.js";
 import { removeMember } from "./application/removeMemberHandler.js";
 
 const commands: Array<Command> = [
     pingCommand,
+    helpCommand,
     feedingStat,
     linkCharacter,
     myStations,
@@ -38,6 +41,7 @@ const commands: Array<Command> = [
 ];
 const buttons: Array<Command> = [
     associated,
+    helpButtons,
 ]
 
 // Create a new client instance
@@ -113,7 +117,8 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
         if (now < expirationTime) {
             const expiredTimestamp = Math.round(expirationTime / 1_000);
             return interaction.reply({
-                    content: `Please wait, you are on a cooldown for \`${command.data.name}\`. You can use it again in <t:${expiredTimestamp}:R>.`,
+                    content: `Please wait, you are on a cooldown for \`${command.data.name}\`. ` +
+                        `You can use it again in <t:${expiredTimestamp}:R>.`,
                     flags: MessageFlags.Ephemeral
                 }
             );
@@ -152,6 +157,5 @@ client.on(Events.GuildMemberRemove, async (member: GuildMember | PartialGuildMem
 // It makes some properties non-nullable.
 client.once(Events.ClientReady, (readyClient: Client) => {
     console.log(`Ready!\nLogged in as ${readyClient?.user?.tag}`);
-    console.log(process.env.BOT_TOKEN)
 });
 client.login(TOKEN)
