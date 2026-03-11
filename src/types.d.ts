@@ -6,11 +6,18 @@ export declare class CustomClient extends Discord.Client {
     public commands: Discord.Collection<string, Command>;
     /** Buttons command collection */
     public buttons: Discord.Collection<string, Command>;
+    /** Modal handlers collection */
+    public modals: Discord.Collection<string, ModalHandler>;
     /** Commands collection */
     public cooldowns: Discord.Collection<string, Collection<string, number>>;
     // public guildInfoCache: Discord.Collection<Discord.Snowflake, GuildInfo>;
     //
     // public userInfoCache: Discord.Collection<Discord.Snowflake, UserInfo>;
+}
+
+export interface ModalHandler {
+    name: string;
+    execute(interaction: Discord.ModalSubmitInteraction): any;
 }
 
 export type ExecuteParameters = {

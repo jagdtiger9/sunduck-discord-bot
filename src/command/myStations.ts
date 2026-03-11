@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { Character, Command, RequestResult } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
 import { linkedCharacters } from "../gateway/HttpApi.js";
@@ -9,7 +9,7 @@ export default {
     data: new SlashCommandBuilder()
         .setName('my_stations')
         .setDescription('Get associated stations for your in-game characters'),
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction | ButtonInteraction) {
         const requestResult: RequestResult<Character[]> = await linkedCharacters(interaction.user)
         if (!requestResult.status) {
             await interaction.reply({ content: `${requestResult.message}`, flags: MessageFlags.Ephemeral });

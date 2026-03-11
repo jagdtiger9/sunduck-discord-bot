@@ -6,12 +6,12 @@ import { API_BASE_URI, buttonCommandParamSplitter, helpButtonCommand } from "../
 export default {
     cooldown: 5,
     data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('Print help info'),
+        .setName('services')
+        .setDescription('Useful services panel'),
     async execute(interaction: ChatInputCommandInteraction) {
         const embed = new EmbedBuilder()
             .setColor(0x0000CC)
-            .setTitle('Sunduck Bot helper')
+            .setTitle('Sunduck bot services')
             .setDescription('Sunduck craft helper bot welcomes you. It can helps you to check/request/validate associates permissions etc...')
             .addFields(
                 {

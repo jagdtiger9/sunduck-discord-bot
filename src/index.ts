@@ -16,7 +16,7 @@
 //const {Client, Events, GatewayIntentBits} = require('discord.js')
 import { BaseInteraction, Client, Collection, Events, GuildMember, PartialGuildMember, REST, Routes } from 'discord.js'
 import { GatewayIntentBits, MessageFlags } from 'discord-api-types/v10'
-import { ButtonParams, Command, CustomClient } from "./types.js";
+import { ButtonParams, Command, CustomClient, ModalHandler } from "./types.js";
 
 import pingCommand from './command/ping.js'
 import feedingStat from './command/feedingStat.js'
@@ -30,6 +30,7 @@ import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
 import { addMember } from "./application/addMemberHandler.js";
 import { removeMember } from "./application/removeMemberHandler.js";
+import linkCharacterModal from "./modals/linkCharacterModal.js";
 
 const commands: Array<Command> = [
     pingCommand,
@@ -50,7 +51,11 @@ const client = new Client({
 }) as CustomClient;
 client.commands = new Collection();
 client.buttons = new Collection();
+client.modals = new Collection();
 client.cooldowns = new Collection();
+
+const modals: Array<ModalHandler> = [linkCharacterModal];
+modals.forEach((modal: ModalHandler) => client.modals.set(modal.name, modal));
 commands.map(
     (command: Command) => {
         client.commands.set(command.data.name, command)
@@ -101,6 +106,18 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
             console.error(`No command matching ${button} was found.`);
             return;
         }
+    } else if (interaction.isModalSubmit()) {
+        const modal: ModalHandler | undefined = client.modals.get(interaction.customId);
+        if (!modal) {
+            console.error(`No modal handler matching ${interaction.customId} was found.`);
+            return;
+        }
+        try {
+            await modal.execute(interaction);
+        } catch (error) {
+            console.error(`Modal execute exception: ${error}`);
+        }
+        return;
     } else {
         return;
     }
