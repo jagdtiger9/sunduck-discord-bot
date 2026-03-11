@@ -7,8 +7,8 @@ import myStations from "../command/myStations.js";
 export default {
     cooldown: 3,
     data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('Help button handler'),
+        .setName('services')
+        .setDescription('Services button handler'),
     async execute(interaction: ButtonInteraction) {
         const button: ButtonParams = getButtonParams(interaction.customId)
 

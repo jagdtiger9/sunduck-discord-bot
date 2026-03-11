@@ -9,5 +9,5 @@ export const ERROR_CHANNEL: string = process.env.ERROR_CHANNEL || ''
 export const MODERATOR_USER_ID: string = process.env.MODERATOR_USER_ID || ''
 
 export const associatedButtonCommand = 'associated'
-export const helpButtonCommand = 'help'
+export const servicesButtonCommand = 'services'
 export const buttonCommandParamSplitter = '__'
