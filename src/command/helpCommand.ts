@@ -2,45 +2,39 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteracti
 import { Command } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
 import { API_BASE_URI, buttonCommandParamSplitter, servicesButtonCommand } from "../settings.js";
+import { t, getLocalizations } from "../i18n/index.js";
 
 export default {
     cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('services')
-        .setDescription('Useful services panel'),
+        .setDescription(t('en').commands.services.description)
+        .setDescriptionLocalizations(getLocalizations(tr => tr.commands.services.description)),
     async execute(interaction: ChatInputCommandInteraction) {
+        const tr = t(interaction.locale).commands.services;
+
         const embed = new EmbedBuilder()
             .setColor(0x0000CC)
-            .setTitle('Sunduck bot services')
-            .setDescription('Here are the most useful services you need to get the most of your opportunities.\n\u200B')
+            .setTitle(tr.title)
+            .setDescription(tr.intro)
             .addFields(
-                {
-                    name: '🔗 Link character',
-                    value: 'Link your in-game character to manage it - `/link_character`\n\u200B' +
-                        '_moderator confirmation required_',
-                },
-                {
-                    name: 'ℹ️ Associated stations ',
-                    value: 'Get an associated stations list for your linked characters - `/my_stations`\n\u200B',
-                },
-                {
-                    name: '🌐 Web interface',
-                    value: 'Access all the services with a web site — https://albion.neogudilap.ru',
-                },
+                { name: tr.linkCharName, value: `${tr.linkCharValue}\n\u200B` },
+                { name: tr.stationsName, value: `${tr.stationsValue}\n\u200B` },
+                { name: tr.webName, value: tr.webValue },
             )
             .setTimestamp();
 
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
             new ButtonBuilder()
                 .setCustomId(`${servicesButtonCommand}${buttonCommandParamSplitter}link_character`)
-                .setLabel('🔗 Link character')
+                .setLabel(tr.btnLinkChar)
                 .setStyle(ButtonStyle.Primary),
             new ButtonBuilder()
                 .setCustomId(`${servicesButtonCommand}${buttonCommandParamSplitter}my_stations`)
-                .setLabel('ℹ️ My stations')
+                .setLabel(tr.btnStations)
                 .setStyle(ButtonStyle.Secondary),
             new ButtonBuilder()
-                .setLabel('🌐 Web site')
+                .setLabel(tr.btnWeb)
                 .setStyle(ButtonStyle.Link)
                 .setURL(API_BASE_URI),
         );

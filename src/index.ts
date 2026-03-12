@@ -27,6 +27,7 @@ import helpButtons from "./buttons/helpButtons.js";
 import associateStat from "./command/associateStat.js"
 import helpCommand from "./command/helpCommand.js"
 import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
+import { t, interp } from "./i18n/index.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
 import { addMember } from "./application/addMemberHandler.js";
 import { removeMember } from "./application/removeMemberHandler.js";
@@ -134,8 +135,10 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
         if (now < expirationTime) {
             const expiredTimestamp = Math.round(expirationTime / 1_000);
             return interaction.reply({
-                    content: `Please wait, you are on a cooldown for \`${command.data.name}\`. ` +
-                        `You can use it again in <t:${expiredTimestamp}:R>.`,
+                    content: interp(t(interaction.locale).common.cooldown, {
+                        command: command.data.name,
+                        time: `<t:${expiredTimestamp}:R>`,
+                    }),
                     flags: MessageFlags.Ephemeral
                 }
             );

@@ -1,8 +1,9 @@
-import { ButtonInteraction, ModalBuilder, SlashCommandBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonInteraction, ModalBuilder, SlashCommandBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import { ButtonParams, Command } from "../types.js";
 import { getButtonParams } from "../application/service/buttonParams.js";
 import { LINK_CHARACTER_MODAL_ID, CHARACTER_NAME_FIELD_ID } from "../modals/linkCharacterModal.js";
 import myStations from "../command/myStations.js";
+import { t } from "../i18n/index.js";
 
 export default {
     cooldown: 3,
@@ -13,15 +14,16 @@ export default {
         const button: ButtonParams = getButtonParams(interaction.customId)
 
         if (button.param === 'link_character') {
+            const tr = t(interaction.locale).modals.linkCharacter;
             const modal = new ModalBuilder()
                 .setCustomId(LINK_CHARACTER_MODAL_ID)
-                .setTitle('Link in-game character')
+                .setTitle(tr.title)
                 .addComponents(
                     new ActionRowBuilder<TextInputBuilder>().addComponents(
                         new TextInputBuilder()
                             .setCustomId(CHARACTER_NAME_FIELD_ID)
-                            .setLabel('Character name')
-                            .setPlaceholder('Enter your exact in-game character name')
+                            .setLabel(tr.label)
+                            .setPlaceholder(tr.placeholder)
                             .setStyle(TextInputStyle.Short)
                             .setMinLength(2)
                             .setMaxLength(64)
