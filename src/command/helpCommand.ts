@@ -7,7 +7,7 @@ import { t, getLocalizations } from "../i18n/index.js";
 export default {
     cooldown: 5,
     data: new SlashCommandBuilder()
-        .setName('services')
+        .setName('sunduck')
         .setDescription(t('en').commands.services.description)
         .setDescriptionLocalizations(getLocalizations(tr => tr.commands.services.description)),
     async execute(interaction: ChatInputCommandInteraction) {

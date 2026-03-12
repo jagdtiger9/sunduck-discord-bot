@@ -8,7 +8,7 @@ import { t } from "../i18n/index.js";
 export default {
     cooldown: 3,
     data: new SlashCommandBuilder()
-        .setName('services')
+        .setName('sunduck')
         .setDescription('Services button handler'),
     async execute(interaction: ButtonInteraction) {
         const button: ButtonParams = getButtonParams(interaction.customId)
