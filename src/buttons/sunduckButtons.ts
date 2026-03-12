@@ -4,11 +4,12 @@ import { getButtonParams } from "../application/service/buttonParams.js";
 import { LINK_CHARACTER_MODAL_ID, CHARACTER_NAME_FIELD_ID } from "../modals/linkCharacterModal.js";
 import myStations from "../command/myStations.js";
 import { t } from "../i18n/index.js";
+import { sunduckButtonCommand } from "../settings.js";
 
 export default {
     cooldown: 3,
     data: new SlashCommandBuilder()
-        .setName('sunduck')
+        .setName(sunduckButtonCommand)
         .setDescription('Services button handler'),
     async execute(interaction: ButtonInteraction) {
         const button: ButtonParams = getButtonParams(interaction.customId)

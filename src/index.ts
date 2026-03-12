@@ -23,9 +23,9 @@ import feedingStat from './command/feedingStat.js'
 import linkCharacter from "./command/linkCharacter.js";
 import myStations from "./command/myStations.js";
 import associated from "./buttons/associated.js"
-import helpButtons from "./buttons/helpButtons.js";
+import helpButtons from "./buttons/sunduckButtons.js";
 import associateStat from "./command/associateStat.js"
-import helpCommand from "./command/helpCommand.js"
+import helpCommand from "./command/sunduckCommand.js"
 import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
 import { t, interp } from "./i18n/index.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
@@ -94,14 +94,13 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
     if (interaction.isChatInputCommand()) {
         command = client.commands.get(interaction.commandName);
         console.log(`Interaction command: ${command}`)
-        //console.log(command)
         if (!command) {
             console.error(`No command matching ${interaction.commandName} was found.`);
             return;
         }
     } else if (interaction.isButton()) {
         const button: ButtonParams = getButtonParams(interaction.customId)
-        console.log(`Interaction button: ${interaction.customId}, ${button}`)
+        console.log(`Interaction button: ${interaction.customId}}`, button)
         command = client.buttons.get(button.name);
         if (!command) {
             console.error(`No command matching ${button} was found.`);

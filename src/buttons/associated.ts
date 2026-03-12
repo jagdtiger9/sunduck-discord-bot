@@ -4,11 +4,12 @@ import { MessageFlags } from "discord-api-types/v10";
 import { associatesStations } from "../gateway/HttpApi.js";
 import { getButtonParams } from "../application/service/buttonParams.js";
 import { t } from "../i18n/index.js";
+import { associatedButtonCommand } from "../settings.js";
 
 export default {
     cooldown: 5,
     data: new SlashCommandBuilder()
-        .setName('associated')
+        .setName(associatedButtonCommand)
         .setDescription('Get associated stations for your linked characters'),
     async execute(interaction: ButtonInteraction) {
         const tr = t(interaction.locale).buttons.associated;

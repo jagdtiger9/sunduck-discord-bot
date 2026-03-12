@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { Command } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
-import { API_BASE_URI, buttonCommandParamSplitter, servicesButtonCommand } from "../settings.js";
+import { API_BASE_URI, buttonCommandParamSplitter, sunduckButtonCommand } from "../settings.js";
 import { t, getLocalizations } from "../i18n/index.js";
 
 export default {
@@ -26,11 +26,11 @@ export default {
 
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
             new ButtonBuilder()
-                .setCustomId(`${servicesButtonCommand}${buttonCommandParamSplitter}link_character`)
+                .setCustomId(`${sunduckButtonCommand}${buttonCommandParamSplitter}link_character`)
                 .setLabel(tr.btnLinkChar)
                 .setStyle(ButtonStyle.Primary),
             new ButtonBuilder()
-                .setCustomId(`${servicesButtonCommand}${buttonCommandParamSplitter}my_stations`)
+                .setCustomId(`${sunduckButtonCommand}${buttonCommandParamSplitter}my_stations`)
                 .setLabel(tr.btnStations)
                 .setStyle(ButtonStyle.Secondary),
             new ButtonBuilder()
