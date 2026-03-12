@@ -119,7 +119,7 @@ export interface Character {
 
 export interface CharacterPermissions {
     character: string,
-    permissionsMap: PermissionsMap[],
+    hasPermissions: boolean,
     image: string,
 }
 
