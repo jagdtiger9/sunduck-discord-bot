@@ -4,11 +4,13 @@ import en from './locales/en.js';
 import ru from './locales/ru.js';
 import de from './locales/de.js';
 import fr from './locales/fr.js';
+import es from './locales/es.js';
 
-const locales: Record<string, Translation> = { en, ru, de, fr };
+const locales: Record<string, Translation> = { en, ru, de, fr, es };
 
 function normalizeLocale(locale: string): string {
     if (locale.startsWith('en')) return 'en';
+    if (locale.startsWith('es')) return 'es';
     return locale in locales ? locale : 'en';
 }
 
@@ -29,6 +31,8 @@ export function getLocalizations(selector: (tr: Translation) => string): Partial
         [Locale.EnglishGB]: selector(locales['en']),
         [Locale.Russian]:   selector(locales['ru']),
         [Locale.German]:    selector(locales['de']),
-        [Locale.French]:    selector(locales['fr']),
+        [Locale.French]:            selector(locales['fr']),
+        [Locale.SpanishES]:         selector(locales['es']),
+        [Locale.SpanishLATAM]:      selector(locales['es']),
     };
 }
