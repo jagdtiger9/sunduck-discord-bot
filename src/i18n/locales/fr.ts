@@ -65,12 +65,17 @@ const fr: Translation = {
             typePve: 'guerriers PvE',
             typeGathering: 'collecteurs',
         },
+        client: {
+            description: 'Register client',
+            optNameDesc: 'Client Discord ID',
+        },
     },
     buttons: {
         associated: {
             description: 'Stations associées au personnage',
             noStations: 'Aucune station associée pour votre personnage',
-            footer: "[N] — numéro de parcelle\nA — pour l'alliance, G — pour la guilde",
+            footer: "[N] — numéro de parcelle\nA — pour l'alliance, G — pour la guilde" +
+                '\n\u200B[Outils d\'artisanat](https://albion.neogudilap.ru)',
         },
     },
     modals: {

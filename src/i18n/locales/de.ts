@@ -65,12 +65,17 @@ const de: Translation = {
             typePve: 'PvE-Kämpfer',
             typeGathering: 'Sammler',
         },
+        client: {
+            description: 'Register client',
+            optNameDesc: 'Client Discord ID',
+        },
     },
     buttons: {
         associated: {
             description: 'Zugeordnete Stationen des Charakters',
             noStations: 'Keine zugeordneten Stationen für deinen Charakter',
-            footer: '[N] — Grundstücksnummer\nA — für Allianz, G — für Gilde',
+            footer: '[N] — Grundstücksnummer\nA — für Allianz, G — für Gilde' +
+                '\n\u200B[Handwerkswerkzeuge](https://albion.neogudilap.ru)',
         },
     },
     modals: {

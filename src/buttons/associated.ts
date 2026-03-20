@@ -25,7 +25,6 @@ export default {
         if (requestResult.data.hasPermissions) {
             embed.setTitle(requestResult.data.character)
             embed.setDescription(tr.description)
-            //embed.addFields({ name: '\u200B', value: '\u200B' })
             embed.setFooter({ text: tr.footer })
         } else {
             embed.setDescription(tr.noStations)

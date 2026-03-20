@@ -140,3 +140,33 @@ export function associateStatistics(
         } as RequestResult<CharacterAggregatedStat[]>
     })
 }
+
+export function registerClient(user: User, channelId: string): Promise<RequestResult<string>> {
+    // const params = new URLSearchParams();
+    // params.append("username", "example");
+    // // GET request sent to https://example.org/login?username=example
+    // return fetch(`${API_BASE_URI}/api/dc/feeding?${params}`);
+    const requestHeaders = new Headers();
+    requestHeaders.append("Content-Type", "application/json");
+    requestHeaders.append("Accept", "application/json");
+    requestHeaders.append("access-token", API_ACCESS_TOKEN)
+    // For now, consider the data is stored on a static `users.json` file
+    return fetch(`${API_BASE_URI}/bot/registerClient`, {
+        method: "POST",
+        headers: requestHeaders,
+        body: JSON.stringify({
+            id: user.id,
+            discordName: user.username,
+            name: user.globalName,
+            channelId: channelId
+        }),
+    }).then(async (result) => {
+        const body = await result.json()
+        return {
+            status: result.ok,
+            statusText: result.statusText,
+            message: body.message,
+            data: '',
+        } as RequestResult<string>
+    })
+}

@@ -65,12 +65,17 @@ const es: Translation = {
             typePve: 'guerreros PvE',
             typeGathering: 'recolectores',
         },
+        client: {
+            description: 'Register client',
+            optNameDesc: 'Client Discord ID',
+        },
     },
     buttons: {
         associated: {
             description: 'Estaciones asociadas al personaje',
             noStations: 'No hay estaciones asociadas para tu personaje',
-            footer: '[N] — número de parcela\nA — para alianza, G — para gremio',
+            footer: '[N] — número de parcela\nA — para alianza, G — para gremio' +
+                '\n\u200B[Herramientas para manualidades](https://albion.neogudilap.ru)',
         },
     },
     modals: {

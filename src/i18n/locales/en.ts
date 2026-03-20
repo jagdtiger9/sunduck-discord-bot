@@ -65,12 +65,17 @@ const en: Translation = {
             typePve: 'PvE beasts',
             typeGathering: 'harvesters',
         },
+        client: {
+            description: 'Register client',
+            optNameDesc: 'Client Discord ID',
+        },
     },
     buttons: {
         associated: {
             description: 'Character associated stations',
             noStations: 'No associated stations for your character',
-            footer: '[N] — plot number\nA — for alliance, G — for guild',
+            footer: '[N] — plot number\nA — for alliance, G — for guild' +
+                '\n\u200B[Craft tools](https://albion.neogudilap.ru)',
         },
     },
     modals: {

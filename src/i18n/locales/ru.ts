@@ -65,12 +65,17 @@ const ru: Translation = {
             typePve: 'PvE бойцы',
             typeGathering: 'собиратели',
         },
+        client: {
+            description: 'Зарегистрировать клиента',
+            optNameDesc: 'Дискорд ID клиента',
+        },
     },
     buttons: {
         associated: {
             description: 'Скидки персонажа',
             noStations: 'Нет скидок для вашего персонажа',
-            footer: '[N] — номер участка\nA — для альянса, G — для гильдии',
+            footer: '[N] — номер участка\nA — для альянса, G — для гильдии' +
+                '\n\u200B[Инструменты для крафтера](https://albion.neogudilap.ru)',
         },
     },
     modals: {

@@ -62,6 +62,10 @@ export interface Translation {
             typeKillers: string
             typePve: string
             typeGathering: string
+        },
+        client: {
+            description: string,
+            optNameDesc: string
         }
     }
     buttons: {
