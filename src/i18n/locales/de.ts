@@ -72,10 +72,10 @@ const de: Translation = {
     },
     buttons: {
         associated: {
-            description: 'Zugeordnete Stationen des Charakters',
-            noStations: 'Keine zugeordneten Stationen für deinen Charakter',
-            footer: '[N] — Grundstücksnummer\nA — für Allianz, G — für Gilde' +
+            description: 'Zugeordnete Stationen des Charakters' +
                 '\n\u200B[Handwerkswerkzeuge](https://albion.neogudilap.ru)',
+            noStations: 'Keine zugeordneten Stationen für deinen Charakter',
+            footer: '[N] — Grundstücksnummer\nA — für Allianz, G — für Gilde'
         },
     },
     modals: {

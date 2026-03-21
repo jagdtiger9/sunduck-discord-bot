@@ -72,10 +72,10 @@ const es: Translation = {
     },
     buttons: {
         associated: {
-            description: 'Estaciones asociadas al personaje',
-            noStations: 'No hay estaciones asociadas para tu personaje',
-            footer: '[N] — número de parcela\nA — para alianza, G — para gremio' +
+            description: 'Estaciones asociadas al personaje' +
                 '\n\u200B[Herramientas para manualidades](https://albion.neogudilap.ru)',
+            noStations: 'No hay estaciones asociadas para tu personaje',
+            footer: '[N] — número de parcela\nA — para alianza, G — para gremio'
         },
     },
     modals: {

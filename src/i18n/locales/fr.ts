@@ -72,10 +72,10 @@ const fr: Translation = {
     },
     buttons: {
         associated: {
-            description: 'Stations associées au personnage',
-            noStations: 'Aucune station associée pour votre personnage',
-            footer: "[N] — numéro de parcelle\nA — pour l'alliance, G — pour la guilde" +
+            description: 'Stations associées au personnage' +
                 '\n\u200B[Outils d\'artisanat](https://albion.neogudilap.ru)',
+            noStations: 'Aucune station associée pour votre personnage',
+            footer: "[N] — numéro de parcelle\nA — pour l'alliance, G — pour la guilde"
         },
     },
     modals: {

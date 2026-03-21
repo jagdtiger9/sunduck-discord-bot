@@ -72,10 +72,10 @@ const en: Translation = {
     },
     buttons: {
         associated: {
-            description: 'Character associated stations',
-            noStations: 'No associated stations for your character',
-            footer: '[N] — plot number\nA — for alliance, G — for guild' +
+            description: 'Character associated stations' +
                 '\n\u200B[Craft tools](https://albion.neogudilap.ru)',
+            noStations: 'No associated stations for your character',
+            footer: '[N] — plot number\nA — for alliance, G — for guild',
         },
     },
     modals: {

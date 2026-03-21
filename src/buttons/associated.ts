@@ -15,7 +15,6 @@ export default {
         const tr = t(interaction.locale).buttons.associated;
         const button: ButtonParams = getButtonParams(interaction.customId)
         const requestResult: RequestResult<CharacterPermissions> = await associatesStations(interaction.user, button.param)
-        console.log(requestResult)
         if (!requestResult.status) {
             await interaction.reply({ content: requestResult.message, flags: MessageFlags.Ephemeral });
             return
