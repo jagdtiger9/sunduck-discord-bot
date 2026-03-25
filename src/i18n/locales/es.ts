@@ -42,6 +42,11 @@ const es: Translation = {
             notifyFieldUser: 'Usuario',
             notifyFieldCharacter: 'Personaje',
         },
+        modLinkCharacter: {
+            description: 'Link an in-game character to an account',
+            optNameDesc: 'Discord name',
+            optCharacterDesc: 'Character name'
+        },
         myStations: {
             description: 'Obtener estaciones asociadas a tus personajes',
             title: 'Selecciona un personaje para ver sus estaciones asociadas',

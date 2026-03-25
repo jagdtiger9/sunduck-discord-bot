@@ -7,7 +7,7 @@ import { t, interp, getLocalizations } from "../i18n/index.js";
 export default {
     cooldown: 5,
     data: new SlashCommandBuilder()
-        .setName('associate_stat')
+        .setName('mod_associate_stat')
         .setDescription(t('en').commands.associateStat.description)
         .setDescriptionLocalizations(getLocalizations(tr => tr.commands.associateStat.description))
         .addStringOption(option =>

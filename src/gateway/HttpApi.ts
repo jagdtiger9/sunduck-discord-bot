@@ -49,6 +49,15 @@ export async function linkCharacter(user: User, characterName: string): Promise<
     }, '');
 }
 
+export async function modLinkCharacter(user: User, characterName: string): Promise<RequestResult<string>> {
+    return postResult<string>('/bot/modLinkCharacter', {
+        id: user.id,
+        discordName: user.username,
+        name: user.globalName,
+        character: characterName,
+    }, '');
+}
+
 export function linkedCharacters(user: User): Promise<RequestResult<Character[]>> {
     return postResult<Character[]>('/bot/linkedCharacters', { id: user.id }, []);
 }

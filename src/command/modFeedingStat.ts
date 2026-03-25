@@ -8,7 +8,7 @@ import { t, getLocalizations } from "../i18n/index.js";
 export default {
     cooldown: 60,
     data: new SlashCommandBuilder()
-        .setName('feeding_stat')
+        .setName('mod_feeding_stat')
         .setDescription(t('en').commands.feedingStat.description)
         .setDescriptionLocalizations(getLocalizations(tr => tr.commands.feedingStat.description))
         .addStringOption(option =>

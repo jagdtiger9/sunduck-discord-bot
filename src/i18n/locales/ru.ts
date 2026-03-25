@@ -33,7 +33,7 @@ const ru: Translation = {
             statCurrent: '...текущая статистика...',
         },
         linkCharacter: {
-            description: 'Привязать игрового персонажа к аккаунту',
+            description: 'Привязка игрового персонажа к вашему аккаунту',
             optNameDesc: 'Имя вашего игрового персонажа',
             awaitingApproval: 'Ожидает подтверждения модератора',
             checkExistence: '[Проверить существование персонажа](https://albion.neogudilap.ru/ru/finder)',
@@ -41,6 +41,11 @@ const ru: Translation = {
             notifyDesc: '[Подтвердить](https://albion.neogudilap.ru/ru/admin/users)',
             notifyFieldUser: 'Пользователь',
             notifyFieldCharacter: 'Персонаж',
+        },
+        modLinkCharacter: {
+            description: 'Привязка игрового персонажа к аккаунту',
+            optNameDesc: 'Имя в дискорде',
+            optCharacterDesc: 'Имя персонажа'
         },
         myStations: {
             description: 'Получить станции со скидками для ваших персонажей',

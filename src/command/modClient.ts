@@ -7,7 +7,7 @@ import { MessageFlags } from "discord-api-types/v10";
 export default {
     cooldown: 5,
     data: new SlashCommandBuilder()
-        .setName('client')
+        .setName('mod_client')
         .setDescription(t('en').commands.client.description)
         .setDescriptionLocalizations(getLocalizations(tr => tr.commands.client.description))
         .addUserOption(option =>

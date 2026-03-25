@@ -40,6 +40,11 @@ export interface Translation {
             notifyFieldUser: string
             notifyFieldCharacter: string
         }
+        modLinkCharacter: {
+            description: string
+            optNameDesc: string
+            optCharacterDesc: string
+        }
         myStations: {
             description: string
             title: string

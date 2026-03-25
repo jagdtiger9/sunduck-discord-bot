@@ -19,14 +19,15 @@ import { GatewayIntentBits, MessageFlags } from 'discord-api-types/v10'
 import { ButtonParams, Command, CustomClient, ModalHandler } from "./types.js";
 
 import pingCommand from './command/ping.js'
-import feedingStat from './command/feedingStat.js'
-import linkCharacter from "./command/linkCharacter.js";
-import myStations from "./command/myStations.js";
+import sunduckCommand from "./command/sunduckCommand.js"
+import linkCharacter from "./command/linkCharacter.js"
+import myStations from "./command/myStations.js"
 import associated from "./buttons/associated.js"
 import helpButtons from "./buttons/sunduckButtons.js";
-import associateStat from "./command/associateStat.js"
-import sunduckCommand from "./command/sunduckCommand.js"
-import clientCommand from "./command/client.js"
+import modFeedingStat from './command/modFeedingStat.js'
+import modAssociateStat from "./command/modAssociateStat.js"
+import modClientCommand from "./command/modClient.js"
+import modLinkCharacter from "./command/modLinkCharacter.js"
 import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
 import { t, interp } from "./i18n/index.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
@@ -37,11 +38,12 @@ import linkCharacterModal from "./modals/linkCharacterModal.js";
 const commands: Array<Command> = [
     pingCommand,
     sunduckCommand,
-    feedingStat,
     linkCharacter,
     myStations,
-    associateStat,
-    clientCommand,
+    modFeedingStat,
+    modAssociateStat,
+    modClientCommand,
+    modLinkCharacter
 ];
 const buttons: Array<Command> = [
     associated,
