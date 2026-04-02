@@ -1,5 +1,5 @@
 import {
-    Character, CharacterAggregatedStat, CharacterPermissions,
+    Character, CharacterAggregatedStat, CharacterPermissions, ClientStat,
     DirectionFilter, FeedingStat, PeriodFilter, RequestResult, TypeFilter
 } from "../types.js";
 import { API_ACCESS_TOKEN, API_BASE_URI } from "../settings.js";
@@ -81,4 +81,10 @@ export async function registerClient(user: User, channelId: string): Promise<Req
         name: user.globalName || user.username,
         channelId,
     }, '');
+}
+
+export async function clientStat(user: User): Promise<RequestResult<ClientStat>> {
+    return postResult<ClientStat>('/bot/clientStat', {
+        id: user.id,
+    }, {} as ClientStat);
 }

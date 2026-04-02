@@ -17,6 +17,7 @@ export declare class CustomClient extends Discord.Client {
 
 export interface ModalHandler {
     name: string;
+
     execute(interaction: Discord.ModalSubmitInteraction): any;
 }
 
@@ -49,45 +50,6 @@ export interface Command {
 
     /** Command callback */
     execute(p: Discord.ChatInputCommandInteraction | Discord.ButtonInteraction): any;
-
-    // /** Aliases for this command */
-    // aliases?: string[];
-    //
-    // /** The category of this command, default is 'No category' */
-    // category: string;
-    //
-    // /** Whether the cooldown on this command will be globally or for a server only */
-    // globalCooldown?: boolean;
-    //
-    // /** Whether or not this command can be disabled in a server */
-    // canNotDisable?: boolean;
-    //
-    // /** Whether or not users can set a custom command cooldown for this command */
-    // canNotSetCooldown?: boolean;
-    //
-    // /** Whether or not users can add custom aliases for this command */
-    // canNotAddAlias?: boolean;
-    //
-    // /** Whether or not this command will be displayed in the help command */
-    // hideCommand?: boolean;
-    //
-    // /** Whether or not this command will still run in ignored channels */
-    // ignoreDisabledChannels?: boolean;
-    //
-    // /** Permissions that the user needs in order to use this command */
-    // perms?: Discord.PermissionResolvable[];
-    //
-    // /** Permissions that the client needs to run this command */
-    // clientPerms?: Discord.PermissionResolvable[];
-    //
-    // /** Whether or not this command can only be used by a developer */
-    // devOnly?: boolean;
-    //
-    // /** Whether or not this command can only be used in specific servers */
-    // someServersOnly?: boolean;
-    //
-    // /** Whether or not this command can only be used by the server owner */
-    // serverOwnerOnly?: boolean;
 }
 
 export interface RequestResult<Type> {
@@ -123,6 +85,20 @@ export interface CharacterPermissions {
     image: string,
 }
 
+export interface ClientStat {
+    name: string,
+    channelId: string,
+    link: string,
+    characters: CharacterStat[]
+}
+
+export interface CharacterStat {
+    name: string,
+    guild: string,
+    isResponsible: 0 | 1,
+    isEvaluated: 0 | 1
+}
+
 export interface PermissionsMap {
     cityId: string,
     cityName: string,
@@ -153,3 +129,4 @@ export type CharacterAggregatedStat = {
 export type DirectionFilter = 'asc' | 'desc'
 export type PeriodFilter = '3w' | '1w' | 'w' | 'prev' | 'this'
 export type TypeFilter = 'craft' | 'pvp' | 'pve' | 'gathering'
+export type ClientCommandType = 'stat' | 'set'

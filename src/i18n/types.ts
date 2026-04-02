@@ -70,6 +70,7 @@ export interface Translation {
         },
         client: {
             description: string,
+            optCommandDesc: string
             optNameDesc: string
         }
     }

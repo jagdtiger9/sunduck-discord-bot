@@ -72,6 +72,7 @@ const ru: Translation = {
         },
         client: {
             description: 'Зарегистрировать клиента',
+            optCommandDesc: 'Команда',
             optNameDesc: 'Дискорд ID клиента',
         },
     },

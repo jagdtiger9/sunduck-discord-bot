@@ -72,6 +72,7 @@ const fr: Translation = {
         },
         client: {
             description: 'Register client',
+            optCommandDesc: 'Commande',
             optNameDesc: 'Client Discord ID',
         },
     },
