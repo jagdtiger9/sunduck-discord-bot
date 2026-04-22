@@ -56,6 +56,7 @@ const en: Translation = {
             description: 'Get associates statistics',
             optFilterDesc: 'Top rated / Low rated / Top rated this week',
             optTypeDesc: 'Craft / PvP / PvE / Gathering',
+            optLimitDesc: 'Record count',
             choiceTop: 'Top',
             choiceLow: 'Low',
             choiceTopCurrent: 'Top current',

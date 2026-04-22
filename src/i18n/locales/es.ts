@@ -56,6 +56,7 @@ const es: Translation = {
             description: 'Obtener estadísticas de asociados',
             optFilterDesc: 'Mejor valorados / Peor valorados / Mejor esta semana',
             optTypeDesc: 'Artesanía / PvP / PvE / Recolección',
+            optLimitDesc: 'Número de registros',
             choiceTop: 'Top',
             choiceLow: 'Bajo',
             choiceTopCurrent: 'Top actual',

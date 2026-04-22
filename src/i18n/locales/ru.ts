@@ -56,6 +56,7 @@ const ru: Translation = {
             description: 'Статистика крафтеров',
             optFilterDesc: 'Топ / Аутсайдеры / Топ текущей недели',
             optTypeDesc: 'Крафт / PvP / PvE / Сбор',
+            optLimitDesc: 'Количество записей',
             choiceTop: 'Топ',
             choiceLow: 'Аутсайдеры',
             choiceTopCurrent: 'Топ (неделя)',

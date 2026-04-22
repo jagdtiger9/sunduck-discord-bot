@@ -43,16 +43,28 @@ export default {
                     { name: 'Gathering', value: 'gathering' },
                 )
                 .setRequired(true)
+        ).addIntegerOption(option =>
+            option.setName('limit')
+                .setDescription(t('en').commands.associateStat.optLimitDesc)
+                .setDescriptionLocalizations(getLocalizations(tr => tr.commands.associateStat.optLimitDesc))
+                .addChoices(
+                    { name: '5', value: 5 },
+                    { name: '10', value: 10 },
+                    { name: '20', value: 20 },
+                    { name: '30', value: 30 },
+                )
+                .setRequired(false)
         ).setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     async execute(interaction: ChatInputCommandInteraction) {
         const tr = t(interaction.locale).commands.associateStat;
         const filter = interaction.options.getString('filter') || 'current'
         const type: TypeFilter = interaction.options.getString('type') as TypeFilter || 'craft'
+        const limit = interaction.options.getInteger('limit') ?? 10
 
         const typeLabels: Record<TypeFilter, string> = {
-            craft:     tr.typeCrafters,
-            pvp:       tr.typeKillers,
-            pve:       tr.typePve,
+            craft: tr.typeCrafters,
+            pvp: tr.typeKillers,
+            pve: tr.typePve,
             gathering: tr.typeGathering,
         }
 
@@ -85,7 +97,8 @@ export default {
         const result: RequestResult<CharacterAggregatedStat[]> = await associateStatistics(
             directionFilter,
             periodFilter,
-            typeFilter
+            typeFilter,
+            limit
         )
         if (!result.status) {
             await interaction.reply({ content: result.message, flags: MessageFlags.Ephemeral });

@@ -56,6 +56,7 @@ const de: Translation = {
             description: 'Assoziiertenstatistik abrufen',
             optFilterDesc: 'Top / Niedrig / Top aktuelle Woche',
             optTypeDesc: 'Handwerk / PvP / PvE / Sammeln',
+            optLimitDesc: 'Anzahl der Einträge',
             choiceTop: 'Top',
             choiceLow: 'Niedrig',
             choiceTopCurrent: 'Top aktuell',

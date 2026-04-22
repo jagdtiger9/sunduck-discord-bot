@@ -70,8 +70,9 @@ export function associateStatistics(
     direction: DirectionFilter,
     period: PeriodFilter,
     type: TypeFilter,
+    limit: number,
 ): Promise<RequestResult<CharacterAggregatedStat[]>> {
-    return postResult<CharacterAggregatedStat[]>('/bot/associateStat', { direction, period, type }, []);
+    return postResult<CharacterAggregatedStat[]>('/bot/associateStat', { direction, period, type, limit }, []);
 }
 
 export async function registerClient(user: User, channelId: string): Promise<RequestResult<string>> {

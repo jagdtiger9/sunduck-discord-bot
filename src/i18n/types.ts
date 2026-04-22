@@ -54,6 +54,7 @@ export interface Translation {
             description: string
             optFilterDesc: string
             optTypeDesc: string
+            optLimitDesc: string
             choiceTop: string
             choiceLow: string
             choiceTopCurrent: string

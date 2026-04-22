@@ -56,6 +56,7 @@ const fr: Translation = {
             description: 'Obtenir les statistiques des associés',
             optFilterDesc: 'Top / Bas / Top semaine actuelle',
             optTypeDesc: 'Artisanat / PvP / PvE / Collecte',
+            optLimitDesc: 'Nombre d\'enregistrements',
             choiceTop: 'Top',
             choiceLow: 'Bas',
             choiceTopCurrent: 'Top actuel',
