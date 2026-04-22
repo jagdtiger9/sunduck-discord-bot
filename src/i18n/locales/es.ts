@@ -71,6 +71,11 @@ const es: Translation = {
             typePve: 'guerreros PvE',
             typeGathering: 'recolectores',
         },
+        pingAlive: {
+            description: 'Hacer ping a los asociados — ¿estáis vivos?',
+            message: '¡Eh, asociados, estáis vivos? 🍻',
+            ack: '¡Ping enviado!',
+        },
         client: {
             description: 'Register client',
             optCommandDesc: 'Comando',

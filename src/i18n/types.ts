@@ -73,6 +73,11 @@ export interface Translation {
             description: string,
             optCommandDesc: string
             optNameDesc: string
+        },
+        pingAlive: {
+            description: string
+            message: string
+            ack: string
         }
     }
     buttons: {

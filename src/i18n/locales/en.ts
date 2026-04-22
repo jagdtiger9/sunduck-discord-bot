@@ -71,6 +71,11 @@ const en: Translation = {
             typePve: 'PvE beasts',
             typeGathering: 'harvesters',
         },
+        pingAlive: {
+            description: 'Ping associates — are you alive?',
+            message: 'Hey associates, are you alive? 🍻',
+            ack: 'Ping sent!',
+        },
         client: {
             description: 'Register client',
             optCommandDesc: 'Command',

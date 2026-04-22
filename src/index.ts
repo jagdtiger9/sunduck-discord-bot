@@ -28,6 +28,7 @@ import modFeedingStat from './command/modFeedingStat.js'
 import modAssociateStat from "./command/modAssociateStat.js"
 import modClientCommand from "./command/modClient.js"
 import modLinkCharacter from "./command/modLinkCharacter.js"
+import modPingAlive from "./command/modPingAlive.js"
 import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
 import { t, interp } from "./i18n/index.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
@@ -43,7 +44,8 @@ const commands: Array<Command> = [
     modFeedingStat,
     modAssociateStat,
     modClientCommand,
-    modLinkCharacter
+    modLinkCharacter,
+    modPingAlive,
 ];
 const buttons: Array<Command> = [
     associated,

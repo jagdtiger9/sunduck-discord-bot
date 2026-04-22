@@ -71,6 +71,11 @@ const de: Translation = {
             typePve: 'PvE-Kämpfer',
             typeGathering: 'Sammler',
         },
+        pingAlive: {
+            description: 'Assoziierte anpingen — seid ihr am Leben?',
+            message: 'Hey Assoziierte, seid ihr am Leben? 🍻',
+            ack: 'Ping gesendet!',
+        },
         client: {
             description: 'Register client',
             optCommandDesc: 'Befehl',

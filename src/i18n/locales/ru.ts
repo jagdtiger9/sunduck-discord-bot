@@ -71,6 +71,11 @@ const ru: Translation = {
             typePve: 'PvE бойцы',
             typeGathering: 'собиратели',
         },
+        pingAlive: {
+            description: 'Пинг ассоциатов — вы живы?',
+            message: 'Эй, ассоциаты, вы живы? 🍻',
+            ack: 'Пинг отправлен!',
+        },
         client: {
             description: 'Зарегистрировать клиента',
             optCommandDesc: 'Команда',

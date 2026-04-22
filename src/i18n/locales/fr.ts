@@ -71,6 +71,11 @@ const fr: Translation = {
             typePve: 'guerriers PvE',
             typeGathering: 'collecteurs',
         },
+        pingAlive: {
+            description: 'Pinger les associés — êtes-vous en vie ?',
+            message: 'Hé les associés, vous êtes en vie ? 🍻',
+            ack: 'Ping envoyé !',
+        },
         client: {
             description: 'Register client',
             optCommandDesc: 'Commande',
