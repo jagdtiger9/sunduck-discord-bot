@@ -73,7 +73,9 @@ const ru: Translation = {
         },
         pingAlive: {
             description: 'Пинг ассоциатов — вы живы?',
-            message: 'Эй, ассоциаты, вы живы? 🍻',
+            modalTitle: 'Пинг ассоциатов',
+            modalLabel: 'Сообщение',
+            modalPlaceholder: 'Эй, ассоциаты, вы живы?',
             ack: 'Пинг отправлен!',
         },
         client: {

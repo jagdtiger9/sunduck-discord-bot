@@ -35,6 +35,7 @@ import { getButtonParams } from "./application/service/buttonParams.js";
 import { addMember } from "./application/addMemberHandler.js";
 import { removeMember } from "./application/removeMemberHandler.js";
 import linkCharacterModal from "./modals/linkCharacterModal.js";
+import pingAliveModal from "./modals/pingAliveModal.js";
 
 const commands: Array<Command> = [
     pingCommand,
@@ -61,7 +62,7 @@ client.buttons = new Collection();
 client.modals = new Collection();
 client.cooldowns = new Collection();
 
-const modals: Array<ModalHandler> = [linkCharacterModal];
+const modals: Array<ModalHandler> = [linkCharacterModal, pingAliveModal];
 modals.forEach((modal: ModalHandler) => client.modals.set(modal.name, modal));
 commands.map(
     (command: Command) => {

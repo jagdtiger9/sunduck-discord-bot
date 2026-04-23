@@ -73,7 +73,9 @@ const de: Translation = {
         },
         pingAlive: {
             description: 'Assoziierte anpingen — seid ihr am Leben?',
-            message: 'Hey Assoziierte, seid ihr am Leben? 🍻',
+            modalTitle: 'Assoziierte anpingen',
+            modalLabel: 'Nachricht',
+            modalPlaceholder: 'Hey Assoziierte, seid ihr am Leben?',
             ack: 'Ping gesendet!',
         },
         client: {

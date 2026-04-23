@@ -73,7 +73,9 @@ const es: Translation = {
         },
         pingAlive: {
             description: 'Hacer ping a los asociados — ¿estáis vivos?',
-            message: '¡Eh, asociados, estáis vivos? 🍻',
+            modalTitle: 'Hacer ping a los asociados',
+            modalLabel: 'Mensaje',
+            modalPlaceholder: '¡Eh, asociados, estáis vivos?',
             ack: '¡Ping enviado!',
         },
         client: {

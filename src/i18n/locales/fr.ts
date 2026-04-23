@@ -73,7 +73,9 @@ const fr: Translation = {
         },
         pingAlive: {
             description: 'Pinger les associés — êtes-vous en vie ?',
-            message: 'Hé les associés, vous êtes en vie ? 🍻',
+            modalTitle: 'Pinger les associés',
+            modalLabel: 'Message',
+            modalPlaceholder: 'Hé les associés, vous êtes en vie ?',
             ack: 'Ping envoyé !',
         },
         client: {

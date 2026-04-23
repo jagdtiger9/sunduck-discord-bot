@@ -76,7 +76,9 @@ export interface Translation {
         },
         pingAlive: {
             description: string
-            message: string
+            modalTitle: string
+            modalLabel: string
+            modalPlaceholder: string
             ack: string
         }
     }
