@@ -15,14 +15,18 @@ export default {
     async execute(interaction: ButtonInteraction) {
         const tr = t(interaction.locale).commands.pingAlive;
 
-        const result = await getPingAliveLastReaction(interaction.user.id);
-        if (result.status && result.data.lastReactedAt !== null) {
-            const elapsed = Date.now() - new Date(parseInt(result.data.lastReactedAt) * 1000).getTime();
-            const customTimeout = interaction.user.id !== MODERATOR_USER_ID ? TWO_WEEKS_MS : 60 * 1000;
-            if (elapsed < customTimeout) {
-                await interaction.reply({ content: tr.alreadyReacted, flags: MessageFlags.Ephemeral });
-                return;
+        try {
+            const result = await getPingAliveLastReaction(interaction.user.id);
+            if (result.status && result.data.lastReactedAt !== null) {
+                const elapsed = Date.now() - new Date(parseInt(result.data.lastReactedAt) * 1000).getTime();
+                const customTimeout = interaction.user.id !== MODERATOR_USER_ID ? TWO_WEEKS_MS : 60 * 1000;
+                if (elapsed < customTimeout) {
+                    await interaction.reply({ content: tr.alreadyReacted, flags: MessageFlags.Ephemeral });
+                    return;
+                }
             }
+        } catch (error) {
+            console.error(`pingAliveRespondButton: getPingAliveLastReaction failed: ${error}`);
         }
 
         await interaction.showModal(buildModal(tr.responseModalTitle, tr));
