@@ -15,6 +15,7 @@ export function buildModal(title: string, tr: ReturnType<typeof t>['commands']['
         .setLabel(tr.responseModalTipLabel)
         .setPlaceholder(tr.responseModalTipValue)
         .setStyle(TextInputStyle.Paragraph)
+        .setMaxLength(5)
         .setRequired(false);
 
     const messageInput = new TextInputBuilder()
@@ -23,6 +24,7 @@ export function buildModal(title: string, tr: ReturnType<typeof t>['commands']['
         .setPlaceholder(tr.responseModalPlaceholder)
         .setStyle(TextInputStyle.Paragraph)
         .setMinLength(3)
+        .setMaxLength(1500)
         .setRequired(true);
 
     return new ModalBuilder()
@@ -48,21 +50,25 @@ export default {
             (tip.length > 0 ? `\`\`\`${tip}\`\`\`` : '')
         )
 
-        const result = await setPingAliveReaction(interaction.user);
-        if (result.data.discordChannelId) {
-            const channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
-            await channel?.send(
-                `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n` +
-                (tip.length > 0 ? `\`\`\`${tip}\`\`\`\n` : '')
+        try {
+            const result = await setPingAliveReaction(interaction.user);
+            if (result.data.discordChannelId) {
+                const channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
+                await channel?.send(
+                    `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n` +
+                    (tip.length > 0 ? `\`\`\`${tip}\`\`\`\n` : '')
+                );
+            }
+            const modChannel = interaction.client.channels.cache.get(MODERATOR_CHANNEL) as TextChannel;
+            await modChannel?.send(
+                `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
+                (tip.length > 0 ? `\`\`\`${tip}\`\`\`` : '') +
+                `\nSave API result: ${result.status ? '✅' : `❌ ${result.message}`}`
             );
+            await interaction.editReply(tr.responseAck);
+        } catch (error) {
+            console.error(`pingAliveResponseModal error: ${error}`);
+            await interaction.editReply(t(interaction.locale).common.error);
         }
-        const modChannel = interaction.client.channels.cache.get(MODERATOR_CHANNEL) as TextChannel;
-        await modChannel?.send(
-            `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
-            (tip.length > 0 ? `\`\`\`${tip}\`\`\`` : '') +
-            `\nSave API result: ${result.status ? '✅' : `❌ ${result.message}`}`
-        );
-
-        await interaction.editReply(tr.responseAck);
     },
 } as ModalHandler
