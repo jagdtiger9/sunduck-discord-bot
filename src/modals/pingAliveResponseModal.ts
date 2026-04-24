@@ -42,15 +42,14 @@ export default {
         const tr = t(interaction.locale).commands.pingAlive;
         const tip = interaction.fields.getTextInputValue(PING_ALIVE_TIP_FIELD_ID).trim();
         const text = interaction.fields.getTextInputValue(PING_ALIVE_RESPONSE_FIELD_ID).trim()
-
-        await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-
         console.log(
+            'pingAliveResponseModal data: ' +
             `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
             (tip.length > 0 ? `\`\`\`${tip}\`\`\`` : '')
         )
-
         try {
+            await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+
             const result = await setPingAliveReaction(interaction.user);
             if (result.data.discordChannelId) {
                 const channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
