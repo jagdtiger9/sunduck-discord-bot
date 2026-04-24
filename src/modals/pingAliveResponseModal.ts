@@ -22,7 +22,7 @@ export function buildModal(title: string, tr: ReturnType<typeof t>['commands']['
         .setLabel(tr.responseModalLabel)
         .setPlaceholder(tr.responseModalPlaceholder)
         .setStyle(TextInputStyle.Paragraph)
-        .setMinLength(5)
+        .setMinLength(3)
         .setRequired(true);
 
     return new ModalBuilder()
