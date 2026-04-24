@@ -80,7 +80,7 @@ const en: Translation = {
             responseModalTitle: 'Ready check',
             responseModalTipLabel: 'ℹ️ Wish / reminder',
             responseModalTipValue: '>>>If possible, please request the stations used on bonus days as needed.<<<',
-            responseModalLabel: 'Message',
+            responseModalLabel: 'Your message',
             responseModalPlaceholder: 'Please list the stations you use regularly',
             responseAck: 'TY! Have a good craft!',
             alreadyReacted: 'You have already confirmed! TY!',

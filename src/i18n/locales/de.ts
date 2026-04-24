@@ -80,7 +80,7 @@ const de: Translation = {
             responseModalTitle: 'Checkliste',
             responseModalTipLabel: 'ℹ️ Wunsch / Erinnerung',
             responseModalTipValue: '>>>Falls möglich, geben Sie bitte bei Bedarf die Sender an, die Sie an Bonustagen hören.<<<',
-            responseModalLabel: 'Nachricht',
+            responseModalLabel: 'Ihre Nachricht',
             responseModalPlaceholder: 'Bitte geben Sie die Sender an, die Sie regelmäßig hören',
             responseAck: 'Danke! Viel Spaß beim Basteln!',
             alreadyReacted: 'Du hast bereits bestätigt! Danke!',

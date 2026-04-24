@@ -80,7 +80,7 @@ const ru: Translation = {
             responseModalTitle: 'Проверка готовности',
             responseModalTipLabel: 'ℹ️ Напоминание-пожелание',
             responseModalTipValue: '>>>Станки используемые в бонусные дни запрашивайте по необходимости.<<<',
-            responseModalLabel: 'Сообщение',
+            responseModalLabel: 'Ваше сообщение',
             responseModalPlaceholder: 'Укажите, пожалуйста, станки, которыми вы регулярно пользуетесь',
             responseAck: 'Спасибо! Удачного крафта!',
             alreadyReacted: 'Ваше подтверждение уже получено! Спасибо!',

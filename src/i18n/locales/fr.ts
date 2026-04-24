@@ -80,7 +80,7 @@ const fr: Translation = {
             responseModalTitle: 'Liste de contrôle',
             responseModalTipLabel: 'ℹ️ Souhait / rappel',
             responseModalTipValue: '>>>Si possible, veuillez préciser les stations utilisées lors des journées bonus, selon vos besoins.<<<',
-            responseModalLabel: 'Message',
+            responseModalLabel: 'Votre message',
             responseModalPlaceholder: 'Veuillez indiquer les stations que vous écoutez régulièrement',
             responseAck: 'Merci! Bon bricolage!',
             alreadyReacted: 'Tu as déjà confirmé ! Merci !',

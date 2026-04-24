@@ -80,7 +80,7 @@ const es: Translation = {
             responseModalTitle: 'Listo, comprobado',
             responseModalTipLabel: 'ℹ️ Deseo / recordatorio',
             responseModalTipValue: '>>>Si es posible, solicite las emisoras que se utilizan en los días extra según sea necesario.<<<',
-            responseModalLabel: 'Mensaje',
+            responseModalLabel: 'Tu mensaje',
             responseModalPlaceholder: 'Indica las emisoras que escuchas habitualmente',
             responseAck: '¡Gracias! ¡Que disfrutes de la manualidad!',
             alreadyReacted: '¡Ya has confirmado! ¡Gracias!',
