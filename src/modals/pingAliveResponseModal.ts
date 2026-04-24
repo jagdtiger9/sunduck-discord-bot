@@ -43,6 +43,11 @@ export default {
 
         await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
+        console.log(
+            `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
+            (tip.length > 0 ? `\`\`\`${tip}\`\`\`` : '')
+        )
+
         const result = await setPingAliveReaction(interaction.user);
         if (result.data.discordChannelId) {
             const channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
