@@ -39,8 +39,7 @@ export default {
     async execute(interaction: ModalSubmitInteraction) {
         const tr = t(interaction.locale).commands.pingAlive;
         const tip = interaction.fields.getTextInputValue(PING_ALIVE_TIP_FIELD_ID).trim();
-        const text = interaction.fields.getTextInputValue(PING_ALIVE_RESPONSE_FIELD_ID).trim() +
-            (tip.length > 0 ? `\n\n---\n${tip}` : '')
+        const text = interaction.fields.getTextInputValue(PING_ALIVE_RESPONSE_FIELD_ID).trim()
 
         await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
@@ -48,13 +47,15 @@ export default {
         if (result.data.discordChannelId) {
             const channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
             await channel?.send(
-                `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n`
+                `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n` +
+                (tip.length > 0 ? `\`\`\`${tip}\`\`\`\n` : '')
             );
         }
         const modChannel = interaction.client.channels.cache.get(MODERATOR_CHANNEL) as TextChannel;
         await modChannel?.send(
-            `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n` +
-            `Save API result: ${result.status ? '✅' : `❌ ${result.message}`}`
+            `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
+            (tip.length > 0 ? `\`\`\`${tip}\`\`\`` : '') +
+            `\nSave API result: ${result.status ? '✅' : `❌ ${result.message}`}`
         );
 
         await interaction.editReply(tr.responseAck);

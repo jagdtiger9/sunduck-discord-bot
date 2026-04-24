@@ -23,7 +23,7 @@ export default {
         );
 
         const channel = interaction.channel as TextChannel;
-        await channel.send({ content: text, components: [row] });
+        await channel.send({ content: `${text}\n_ _\n`, components: [row] });
 
         await interaction.deleteReply();
     },
