@@ -1,6 +1,6 @@
 import {
     Character, CharacterAggregatedStat, CharacterPermissions, ClientStat,
-    DirectionFilter, FeedingStat, PeriodFilter, RequestResult, TypeFilter
+    DirectionFilter, FeedingStat, PeriodFilter, PingAliveReaction, PingAliveReactionResult, RequestResult, TypeFilter
 } from "../types.js";
 import { API_ACCESS_TOKEN, API_BASE_URI } from "../settings.js";
 import { User } from "discord.js";
@@ -82,6 +82,18 @@ export async function registerClient(user: User, channelId: string): Promise<Req
         name: user.globalName || user.username,
         channelId,
     }, '');
+}
+
+export function getPingAliveLastReaction(userId: string): Promise<RequestResult<PingAliveReaction>> {
+    return postResult<PingAliveReaction>('/bot/pingAliveLastReaction', { userId }, { lastReactedAt: null });
+}
+
+export function setPingAliveReaction(user: User): Promise<RequestResult<PingAliveReactionResult>> {
+    return postResult<PingAliveReactionResult>('/bot/pingAliveReaction', {
+        id: user.id,
+        discordName: user.username,
+        name: user.globalName || user.username,
+    }, { discordChannelId: '', message: '' });
 }
 
 export async function clientStat(user: User): Promise<RequestResult<ClientStat>> {

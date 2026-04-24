@@ -7,7 +7,6 @@ export async function addMember(member: GuildMember) {
         name: member.user.globalName ?? member.user.username,
         id: member.user.id,
     });
-    console.log(message)
     const channel = member.client.channels.cache.get(PASSPORT_CHANNEL) as TextChannel;
     await channel?.send({ content: message })
 }

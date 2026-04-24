@@ -79,7 +79,14 @@ export interface Translation {
             modalTitle: string
             modalLabel: string
             modalPlaceholder: string
-            ack: string
+            buttonLabel: string
+            responseModalTitle: string
+            responseModalTipLabel: string
+            responseModalTipValue: string
+            responseModalLabel: string
+            responseModalPlaceholder: string
+            responseAck: string
+            alreadyReacted: string
         }
     }
     buttons: {

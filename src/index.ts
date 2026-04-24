@@ -36,6 +36,8 @@ import { addMember } from "./application/addMemberHandler.js";
 import { removeMember } from "./application/removeMemberHandler.js";
 import linkCharacterModal from "./modals/linkCharacterModal.js";
 import pingAliveModal from "./modals/pingAliveModal.js";
+import pingAliveRespondButton from "./buttons/pingAliveRespondButton.js";
+import pingAliveResponseModal from "./modals/pingAliveResponseModal.js";
 
 const commands: Array<Command> = [
     pingCommand,
@@ -51,6 +53,7 @@ const commands: Array<Command> = [
 const buttons: Array<Command> = [
     associated,
     helpButtons,
+    pingAliveRespondButton,
 ]
 
 // Create a new client instance
@@ -62,7 +65,7 @@ client.buttons = new Collection();
 client.modals = new Collection();
 client.cooldowns = new Collection();
 
-const modals: Array<ModalHandler> = [linkCharacterModal, pingAliveModal];
+const modals: Array<ModalHandler> = [linkCharacterModal, pingAliveModal, pingAliveResponseModal];
 modals.forEach((modal: ModalHandler) => client.modals.set(modal.name, modal));
 commands.map(
     (command: Command) => {
@@ -107,7 +110,7 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
         }
     } else if (interaction.isButton()) {
         const button: ButtonParams = getButtonParams(interaction.customId)
-        console.log(`Interaction button: ${interaction.customId}}`, button)
+        console.log(`Interaction button: ${interaction.customId}`, button)
         command = client.buttons.get(button.name);
         if (!command) {
             console.error(`No command matching ${button} was found.`);

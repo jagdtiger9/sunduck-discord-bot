@@ -126,6 +126,15 @@ export type CharacterAggregatedStat = {
     updatedAt: string,
 }
 
+export type PingAliveReaction = {
+    lastReactedAt: string | null
+}
+
+export type PingAliveReactionResult = {
+    discordChannelId: string
+    message: string
+}
+
 export type DirectionFilter = 'asc' | 'desc'
 export type PeriodFilter = '3w' | '1w' | 'w' | 'prev' | 'this'
 export type TypeFilter = 'craft' | 'pvp' | 'pve' | 'gathering'

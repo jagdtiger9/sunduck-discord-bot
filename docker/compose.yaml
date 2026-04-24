@@ -16,7 +16,7 @@ services:
             - API_ACCESS_TOKEN=${API_ACCESS_TOKEN}
             - FEED_UP_CHANNEL=${FEED_UP_CHANNEL}
             - PASSPORT_CHANNEL=${PASSPORT_CHANNEL}
-            - ERROR_CHANNEL=${ERROR_CHANNEL}
+            - MODERATOR_CHANNEL=${MODERATOR_CHANNEL}
         volumes:
             - ${DISCORD_FILES:-/tmp}:/var/www
         working_dir: /var/www
