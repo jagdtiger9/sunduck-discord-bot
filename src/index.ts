@@ -159,7 +159,7 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
     try {
         await command.execute(interaction);
     } catch (error) {
-        console.error(`exception: ${error}`);
+        console.error(`Exception: ${error}, ${interaction.user.username}[${interaction.user.globalName}]`);
         if (error instanceof Error) {
             console.error(`Register command error: ${error.name} | ${error.message} | ${error.cause}`);
         }
