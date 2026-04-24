@@ -7,17 +7,8 @@ import { setPingAliveReaction } from "../gateway/HttpApi.js";
 
 export const PING_ALIVE_RESPONSE_MODAL_ID = 'ping_alive_response_modal';
 export const PING_ALIVE_RESPONSE_FIELD_ID = 'ping_alive_response_message';
-const PING_ALIVE_TIP_FIELD_ID = 'ping_alive_tip';
 
 export function buildModal(title: string, tr: ReturnType<typeof t>['commands']['pingAlive']): ModalBuilder {
-    const tipInput = new TextInputBuilder()
-        .setCustomId(PING_ALIVE_TIP_FIELD_ID)
-        .setLabel(tr.responseModalTipLabel)
-        .setPlaceholder(tr.responseModalTipValue)
-        .setStyle(TextInputStyle.Paragraph)
-        .setMaxLength(5)
-        .setRequired(false);
-
     const messageInput = new TextInputBuilder()
         .setCustomId(PING_ALIVE_RESPONSE_FIELD_ID)
         .setLabel(tr.responseModalLabel)
@@ -31,7 +22,6 @@ export function buildModal(title: string, tr: ReturnType<typeof t>['commands']['
         .setCustomId(PING_ALIVE_RESPONSE_MODAL_ID)
         .setTitle(title)
         .addComponents(
-            new ActionRowBuilder<TextInputBuilder>().addComponents(tipInput),
             new ActionRowBuilder<TextInputBuilder>().addComponents(messageInput),
         );
 }
@@ -40,12 +30,10 @@ export default {
     name: PING_ALIVE_RESPONSE_MODAL_ID,
     async execute(interaction: ModalSubmitInteraction) {
         const tr = t(interaction.locale).commands.pingAlive;
-        const tip = interaction.fields.getTextInputValue(PING_ALIVE_TIP_FIELD_ID).trim();
         const text = interaction.fields.getTextInputValue(PING_ALIVE_RESPONSE_FIELD_ID).trim()
         console.log(
             'pingAliveResponseModal data: ' +
-            `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
-            (tip.length > 0 ? `\`\`\`${tip}\`\`\`` : '')
+            `<@${interaction.user.id}>\n\`\`\`${text}\`\`\``
         )
         try {
             await interaction.deferReply({ flags: MessageFlags.Ephemeral });
@@ -54,14 +42,12 @@ export default {
             if (result.data.discordChannelId) {
                 const channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
                 await channel?.send(
-                    `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n` +
-                    (tip.length > 0 ? `\`\`\`${tip}\`\`\`\n` : '')
+                    `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n`
                 );
             }
             const modChannel = interaction.client.channels.cache.get(MODERATOR_CHANNEL) as TextChannel;
             await modChannel?.send(
                 `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
-                (tip.length > 0 ? `\`\`\`${tip}\`\`\`` : '') +
                 `\nSave API result: ${result.status ? '✅' : `❌ ${result.message}`}`
             );
             await interaction.editReply(tr.responseAck);

@@ -81,8 +81,6 @@ export interface Translation {
             modalPlaceholder: string
             buttonLabel: string
             responseModalTitle: string
-            responseModalTipLabel: string
-            responseModalTipValue: string
             responseModalLabel: string
             responseModalPlaceholder: string
             responseAck: string
