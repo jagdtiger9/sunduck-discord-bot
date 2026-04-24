@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction, TextChannel } from "discord.js";
+import { ActionRowBuilder, ModalBuilder, ModalSubmitInteraction, TextChannel, TextInputBuilder, TextInputStyle } from "discord.js";
 import { ModalHandler } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
 import { t } from "../i18n/index.js";
@@ -7,12 +7,40 @@ import { setPingAliveReaction } from "../gateway/HttpApi.js";
 
 export const PING_ALIVE_RESPONSE_MODAL_ID = 'ping_alive_response_modal';
 export const PING_ALIVE_RESPONSE_FIELD_ID = 'ping_alive_response_message';
+const PING_ALIVE_TIP_FIELD_ID = 'ping_alive_tip';
+
+export function buildModal(title: string, tr: ReturnType<typeof t>['commands']['pingAlive']): ModalBuilder {
+    const tipInput = new TextInputBuilder()
+        .setCustomId(PING_ALIVE_TIP_FIELD_ID)
+        .setLabel(tr.responseModalTipLabel)
+        .setPlaceholder(tr.responseModalTipValue)
+        .setStyle(TextInputStyle.Paragraph)
+        .setRequired(false);
+
+    const messageInput = new TextInputBuilder()
+        .setCustomId(PING_ALIVE_RESPONSE_FIELD_ID)
+        .setLabel(tr.responseModalLabel)
+        .setPlaceholder(tr.responseModalPlaceholder)
+        .setStyle(TextInputStyle.Paragraph)
+        .setMinLength(5)
+        .setRequired(true);
+
+    return new ModalBuilder()
+        .setCustomId(PING_ALIVE_RESPONSE_MODAL_ID)
+        .setTitle(title)
+        .addComponents(
+            new ActionRowBuilder<TextInputBuilder>().addComponents(tipInput),
+            new ActionRowBuilder<TextInputBuilder>().addComponents(messageInput),
+        );
+}
 
 export default {
     name: PING_ALIVE_RESPONSE_MODAL_ID,
     async execute(interaction: ModalSubmitInteraction) {
         const tr = t(interaction.locale).commands.pingAlive;
-        const text = interaction.fields.getTextInputValue(PING_ALIVE_RESPONSE_FIELD_ID).trim();
+        const tip = interaction.fields.getTextInputValue(PING_ALIVE_TIP_FIELD_ID).trim();
+        const text = interaction.fields.getTextInputValue(PING_ALIVE_RESPONSE_FIELD_ID).trim() +
+            (tip.length > 0 ? `\n\n---\n${tip}` : '')
 
         await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
@@ -20,12 +48,12 @@ export default {
         if (result.data.discordChannelId) {
             const channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
             await channel?.send(
-                `<@${interaction.user.id}>: ${text}\n`
-            )
+                `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n`
+            );
         }
-        const channel = interaction.client.channels.cache.get(MODERATOR_CHANNEL) as TextChannel;
-        await channel?.send(
-            `<@${interaction.user.id}>: ${text}\n` +
+        const modChannel = interaction.client.channels.cache.get(MODERATOR_CHANNEL) as TextChannel;
+        await modChannel?.send(
+            `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n` +
             `Save API result: ${result.status ? '✅' : `❌ ${result.message}`}`
         );
 
