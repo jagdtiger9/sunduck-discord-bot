@@ -22,7 +22,6 @@ function buildEmbed(interaction: ModalSubmitInteraction, isGuild: boolean): Embe
 
     const embed = new EmbedBuilder()
         .setColor(0x0000CC)
-        .setTitle('New ticket')
         .addFields(
             { name: 'Access type', value: isGuild ? 'Guild' : 'Personal', inline: false },
             { name: 'IGN', value: `\`\`\`${ign}\`\`\``, inline: false },
