@@ -97,7 +97,14 @@ export function setPingAliveReaction(user: User): Promise<RequestResult<PingAliv
 }
 
 export async function clientStat(user: User): Promise<RequestResult<ClientStat>> {
-    return postResult<ClientStat>('/bot/clientStat', {
+    return postResult<ClientStat>('/bot/clientStat', { id: user.id }, {} as ClientStat);
+}
+
+export async function createTicketClient(user: User, channelId: string): Promise<RequestResult<string>> {
+    return postResult<string>('/bot/registerClient', {
         id: user.id,
-    }, {} as ClientStat);
+        discordName: user.username,
+        name: user.globalName || user.username,
+        channelId,
+    }, '');
 }

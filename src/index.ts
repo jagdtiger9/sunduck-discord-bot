@@ -29,6 +29,7 @@ import modAssociateStat from "./command/modAssociateStat.js"
 import modClientCommand from "./command/modClient.js"
 import modLinkCharacter from "./command/modLinkCharacter.js"
 import modPingAlive from "./command/modPingAlive.js"
+import modTicketManager from "./command/modTicketManager.js"
 import { APP_ID, SERVER_ID, TOKEN } from "./settings.js";
 import { t, interp } from "./i18n/index.js";
 import { getButtonParams } from "./application/service/buttonParams.js";
@@ -38,6 +39,8 @@ import linkCharacterModal from "./modals/linkCharacterModal.js";
 import pingAliveModal from "./modals/pingAliveModal.js";
 import pingAliveRespondButton from "./buttons/pingAliveRespondButton.js";
 import pingAliveResponseModal from "./modals/pingAliveResponseModal.js";
+import ticketManagerButton from "./buttons/ticketManagerButton.js";
+import { ticketManagerModalPrivate, ticketManagerModalGuild } from "./modals/ticketManagerModal.js";
 
 const commands: Array<Command> = [
     pingCommand,
@@ -49,11 +52,13 @@ const commands: Array<Command> = [
     modClientCommand,
     modLinkCharacter,
     modPingAlive,
+    modTicketManager,
 ];
 const buttons: Array<Command> = [
     associated,
     helpButtons,
     pingAliveRespondButton,
+    ticketManagerButton,
 ]
 
 // Create a new client instance
@@ -65,7 +70,7 @@ client.buttons = new Collection();
 client.modals = new Collection();
 client.cooldowns = new Collection();
 
-const modals: Array<ModalHandler> = [linkCharacterModal, pingAliveModal, pingAliveResponseModal];
+const modals: Array<ModalHandler> = [linkCharacterModal, pingAliveModal, pingAliveResponseModal, ticketManagerModalPrivate, ticketManagerModalGuild];
 modals.forEach((modal: ModalHandler) => client.modals.set(modal.name, modal));
 commands.map(
     (command: Command) => {
