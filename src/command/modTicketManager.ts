@@ -12,7 +12,7 @@ export default {
             new ButtonBuilder()
                 .setCustomId(`${ticketManagerButtonCommand}${buttonCommandParamSplitter}private`)
                 .setLabel('Personal')
-                .setEmoji('🔒')
+                .setEmoji('👤')
                 .setStyle(ButtonStyle.Primary),
             new ButtonBuilder()
                 .setCustomId(`${ticketManagerButtonCommand}${buttonCommandParamSplitter}guild`)

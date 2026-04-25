@@ -67,8 +67,13 @@ async function execute(interaction: ModalSubmitInteraction) {
         ],
     });
 
-    const member = await interaction.guild.members.fetch(interaction.user.id) as GuildMember;
-    await member.roles.add(TICKET_ROLE_ID);
+    try {
+        const member = await interaction.guild.members.fetch(interaction.user.id) as GuildMember;
+        await member.roles.add(TICKET_ROLE_ID);
+    } catch (error) {
+        console.error(`Failed to assign ticket role to ${interaction.user.username}: ${error}`);
+    }
+
     await createTicketClient(interaction.user, channel.id);
 
     await channel.send({ content: `<@${interaction.user.id}>`, embeds: [embed] });
