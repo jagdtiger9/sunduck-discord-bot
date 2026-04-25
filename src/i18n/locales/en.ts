@@ -76,7 +76,7 @@ const en: Translation = {
             modalTitle: 'Are you alive ping',
             modalLabel: 'Message',
             modalPlaceholder: 'Message text, please',
-            buttonLabel: '🍻 Let\'s go!',
+            buttonLabel: '🍻 Onboard!',
             responseModalTitle: 'Confirmation',
             responseModalLabel: 'Your message',
             responseModalPlaceholder: 'List the stations you use regularly',

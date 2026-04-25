@@ -76,7 +76,7 @@ const ru: Translation = {
             modalTitle: 'Are you onboard ping',
             modalLabel: 'Message',
             modalPlaceholder: 'Message text, please',
-            buttonLabel: '🍻 Поехали!',
+            buttonLabel: '🍻 Onboard!',
             responseModalTitle: 'Подтверждение',
             responseModalLabel: 'Ваше сообщение',
             responseModalPlaceholder: 'Укажите станки, которыми вы регулярно пользуетесь',

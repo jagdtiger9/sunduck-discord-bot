@@ -76,7 +76,7 @@ const fr: Translation = {
             modalTitle: 'Pinger les associés',
             modalLabel: 'Message',
             modalPlaceholder: 'Message text, please',
-            buttonLabel: '🍻 C\'est parti !',
+            buttonLabel: '🍻 Onboard!',
             responseModalTitle: 'Confirmation',
             responseModalLabel: 'Votre message',
             responseModalPlaceholder: 'Énumérez les stations que vous écoutez régulièrement',

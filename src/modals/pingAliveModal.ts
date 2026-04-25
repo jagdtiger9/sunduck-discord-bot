@@ -10,7 +10,6 @@ export const PING_ALIVE_MESSAGE_FIELD_ID = 'ping_alive_message';
 export default {
     name: PING_ALIVE_MODAL_ID,
     async execute(interaction: ModalSubmitInteraction) {
-        const tr = t(interaction.locale).commands.pingAlive;
         const text = interaction.fields.getTextInputValue(PING_ALIVE_MESSAGE_FIELD_ID).trim();
 
         await interaction.deferReply({ flags: MessageFlags.Ephemeral });
@@ -18,12 +17,12 @@ export default {
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
             new ButtonBuilder()
                 .setCustomId(pingAliveRespondButtonCommand)
-                .setLabel(tr.buttonLabel)
+                .setLabel(t('en').commands.pingAlive.buttonLabel)
                 .setStyle(ButtonStyle.Primary)
         );
 
         const channel = interaction.channel as TextChannel;
-        await channel.send({ content: `${text}\n_ _\n`, components: [row] });
+        await channel.send({ content: `${text}\n`, components: [row] });
 
         await interaction.deleteReply();
     },
