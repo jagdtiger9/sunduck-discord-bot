@@ -1,8 +1,9 @@
-import { ChannelType, EmbedBuilder, GuildMember, ModalSubmitInteraction, PermissionFlagsBits, TextChannel } from "discord.js";
+import { ChannelType, EmbedBuilder, GuildMember, ModalSubmitInteraction, TextChannel } from "discord.js";
 import { ModalHandler } from "../types.js";
 import { MessageFlags } from "discord-api-types/v10";
-import { TICKET_CATEGORY_ID, TICKET_ROLE_ID } from "../settings.js";
+import { TICKET_BOT_ROLE_ID, TICKET_CATEGORY_ID, TICKET_FRIEND_ROLE_ID, TICKET_SUPPORT_ROLE_ID } from "../settings.js";
 import { clientStat, createTicketClient } from "../gateway/HttpApi.js";
+import { buildTicketPermissionOverwrites } from "../application/service/ticketChannelPermissions.js";
 
 export const TICKET_MANAGER_MODAL_PRIVATE_ID = 'ticket_manager_modal_private';
 export const TICKET_MANAGER_MODAL_GUILD_ID = 'ticket_manager_modal_guild';
@@ -64,27 +65,36 @@ async function execute(interaction: ModalSubmitInteraction) {
         }
     }
 
-    const channel = await interaction.guild.channels.create({
-        name: safeChannelName(interaction.user.username),
-        type: ChannelType.GuildText,
-        parent: TICKET_CATEGORY_ID,
-        permissionOverwrites: [
-            { id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
-            { id: interaction.user.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory] },
-        ],
-    });
+    let channel: TextChannel
+    try {
+        channel = await interaction.guild.channels.create({
+            name: safeChannelName(interaction.user.username),
+            type: ChannelType.GuildText,
+            parent: TICKET_CATEGORY_ID,
+            permissionOverwrites: buildTicketPermissionOverwrites(
+                interaction.guild.id,
+                TICKET_BOT_ROLE_ID,
+                TICKET_SUPPORT_ROLE_ID,
+                interaction.user.id,
+            ),
+        });
+    } catch (error) {
+        console.error(`Failed to create channel for ${interaction.user.username}: ${error}`);
+        return
+    }
 
     try {
-        console.log(`Assign ticket role to ${interaction.user.username}: ${TICKET_ROLE_ID}`);
+        console.log(`Assign ticket role to ${interaction.user.username}: ${TICKET_FRIEND_ROLE_ID}`);
         const member = await interaction.guild.members.fetch(interaction.user.id) as GuildMember;
-        await member.roles.add(TICKET_ROLE_ID);
+        await member.roles.add(TICKET_FRIEND_ROLE_ID);
     } catch (error) {
         console.error(`Failed to assign ticket role to ${interaction.user.username}: ${error}`);
     }
 
     await createTicketClient(interaction.user, channel.id);
 
-    await channel.send({ content: `<@${interaction.user.id}>`, embeds: [embed] });
+    const message = await channel.send({ content: `<@${interaction.user.id}>`, embeds: [embed] });
+    await message.pin();
     await interaction.editReply({ content: `Your ticket has been created: ${channel}` });
 }
 

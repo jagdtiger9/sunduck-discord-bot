@@ -17,8 +17,11 @@ services:
             - FEED_UP_CHANNEL=${FEED_UP_CHANNEL}
             - PASSPORT_CHANNEL=${PASSPORT_CHANNEL}
             - MODERATOR_CHANNEL=${MODERATOR_CHANNEL}
+            - MODERATOR_USER_ID=${MODERATOR_USER_ID:-0}
             - TICKET_CATEGORY_ID=${TICKET_CATEGORY_ID}
-            - TICKET_ROLE_ID=${TICKET_ROLE_ID}
+            - TICKET_FRIEND_ROLE_ID=${TICKET_FRIEND_ROLE_ID}
+            - TICKET_BOT_ROLE_ID=${TICKET_BOT_ROLE_ID}
+            - TICKET_SUPPORT_ROLE_ID=${TICKET_SUPPORT_ROLE_ID}
         volumes:
             - ${DISCORD_FILES:-/tmp}:/var/www
         working_dir: /var/www
