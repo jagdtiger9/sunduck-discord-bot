@@ -51,10 +51,17 @@ async function execute(interaction: ModalSubmitInteraction) {
     const stat = await clientStat(interaction.user);
 
     if (stat.status && stat.data?.channelId) {
-        const existing = interaction.guild.channels.cache.get(stat.data.channelId) as TextChannel | undefined;
-        await existing?.send({ content: `Welcome <@${interaction.user.id}>\n_ _\n`, embeds: [embed] });
-        await interaction.editReply({ content: `Your ticket has been updated: <#${stat.data.channelId}>` });
-        return;
+        let existing: TextChannel | null = null;
+        try {
+            existing = await interaction.guild.channels.fetch(stat.data.channelId) as TextChannel | null;
+        } catch {
+            // channel was deleted — fall through to create a new one
+        }
+        if (existing) {
+            await existing.send({ content: `Welcome <@${interaction.user.id}>\n_ _\n`, embeds: [embed] });
+            await interaction.editReply({ content: `Your ticket has been updated: <#${stat.data.channelId}>` });
+            return;
+        }
     }
 
     const channel = await interaction.guild.channels.create({
