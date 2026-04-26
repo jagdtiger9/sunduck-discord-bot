@@ -68,6 +68,7 @@ async function execute(interaction: ModalSubmitInteraction) {
     });
 
     try {
+        console.log(`Assign ticket role to ${interaction.user.username}: ${TICKET_ROLE_ID}`);
         const member = await interaction.guild.members.fetch(interaction.user.id) as GuildMember;
         await member.roles.add(TICKET_ROLE_ID);
     } catch (error) {
