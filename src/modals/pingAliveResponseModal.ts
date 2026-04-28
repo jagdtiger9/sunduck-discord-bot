@@ -38,18 +38,22 @@ export default {
         try {
             await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
+            let channel: TextChannel | null = null
             const result = await setPingAliveReaction(interaction.user);
             if (result.data.discordChannelId) {
-                const channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
-                await channel?.send(
+                channel = interaction.client.channels.cache.get(result.data.discordChannelId) as TextChannel;
+            }
+            if (channel) {
+                await channel.send(
                     `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`\n`
                 );
+            } else {
+                const modChannel = interaction.client.channels.cache.get(MODERATOR_CHANNEL) as TextChannel;
+                await modChannel?.send(
+                    `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
+                    `\nSave API result: ${result.status ? '✅' : `❌ ${result.message}`}`
+                );
             }
-            const modChannel = interaction.client.channels.cache.get(MODERATOR_CHANNEL) as TextChannel;
-            await modChannel?.send(
-                `<@${interaction.user.id}>\n\`\`\`${text}\`\`\`` +
-                `\nSave API result: ${result.status ? '✅' : `❌ ${result.message}`}`
-            );
             await interaction.editReply(tr.responseAck);
         } catch (error) {
             console.error(`pingAliveResponseModal error: ${error}`);
