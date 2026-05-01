@@ -44,7 +44,7 @@ export async function linkCharacter(user: User, characterName: string): Promise<
     return postResult<string>('/bot/linkCharacter', {
         id: user.id,
         discordName: user.username,
-        name: user.globalName || user.username,
+        name: user.username,
         character: characterName,
     }, '');
 }
@@ -53,7 +53,7 @@ export async function modLinkCharacter(user: User, characterName: string): Promi
     return postResult<string>('/bot/modLinkCharacter', {
         id: user.id,
         discordName: user.username,
-        name: user.globalName || user.username,
+        name: user.username,
         character: characterName,
     }, '');
 }
@@ -79,7 +79,7 @@ export async function registerClient(user: User, channelId: string): Promise<Req
     return postResult<string>('/bot/registerClient', {
         id: user.id,
         discordName: user.username,
-        name: user.globalName || user.username,
+        name: user.username,
         channelId,
     }, '');
 }
@@ -92,7 +92,7 @@ export function setPingAliveReaction(user: User): Promise<RequestResult<PingAliv
     return postResult<PingAliveReactionResult>('/bot/pingAliveReaction', {
         id: user.id,
         discordName: user.username,
-        name: user.globalName || user.username,
+        name: user.username,
     }, { discordChannelId: '', message: '' });
 }
 
@@ -104,7 +104,7 @@ export async function createTicketClient(user: User, channelId: string): Promise
     return postResult<string>('/bot/registerClient', {
         id: user.id,
         discordName: user.username,
-        name: user.globalName || user.username,
+        name: user.username,
         channelId,
     }, '');
 }
