@@ -36,16 +36,15 @@ export default {
         const user: User = interaction.options.getUser('name', true);
         const command: ClientCommandType = interaction.options.getString('command') as ClientCommandType || 'stat'
         //const member = interaction.options.getMember('name') as GuildMember | null;
-        // console.log({
-        //     channelId: interaction.channelId,
-        //     id: user.id,
-        //     tag: user.tag,
-        //     username: user.username,
-        //     roles: member?.roles.cache.map(r => r.name) ?? [],
-        //     joinedAt: member?.joinedAt,
-        //     createdAt: user.createdAt,
-        //     command,
-        // })
+        console.log({
+            channelId: interaction.channelId,
+            id: user.id,
+            tag: user.tag,
+            username: user.username,
+            name: user.globalName || user.username,
+            createdAt: user.createdAt,
+            command,
+        })
         if (command === 'set') {
             const result: RequestResult<string> = await registerClient(user, interaction.channelId)
             await interaction.reply({
