@@ -41,7 +41,8 @@ export default {
             id: user.id,
             tag: user.tag,
             username: user.username,
-            name: user.globalName || user.username,
+            displayName: user.displayName,
+            globalName: user.globalName,
             createdAt: user.createdAt,
             command,
         })
